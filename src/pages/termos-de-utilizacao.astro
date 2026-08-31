@@ -1,0 +1,90 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { site } from '../data/site';
+---
+
+<LegalLayout
+  title={`Termos de Utilização | ${site.name}`}
+  description={`Termos e condições de utilização do website ${site.name}.`}
+>
+  <p class="kicker">Legal</p>
+  <h1>Termos de Utilização</h1>
+  <p class="legal-meta">Última atualização: 31 de agosto de 2026</p>
+
+  <p>
+    Ao aceder e utilizar o website <a href={site.url}>{site.url.replace('https://', '')}</a>,
+    concorda com os presentes Termos de Utilização. Se não concordar, pedimos que não utilize este
+    site.
+  </p>
+
+  <h2>1. Objeto</h2>
+  <p>
+    Este website tem carácter informativo e destina-se a apresentar os serviços da {site.name},
+    salão de cabeleireiro e estética localizado em Esposende, Portugal, bem como facilitar o
+    contacto para marcação de atendimentos.
+  </p>
+
+  <h2>2. Utilização do website</h2>
+  <p>O utilizador compromete-se a utilizar o website de forma lícita e adequada, abstendo-se de:</p>
+  <ul>
+    <li>Utilizar o site para fins ilícitos ou que violem direitos de terceiros;</li>
+    <li>Tentar aceder a áreas restritas ou interferir com o normal funcionamento do site;</li>
+    <li>Reproduzir, copiar ou distribuir conteúdos sem autorização prévia.</li>
+  </ul>
+
+  <h2>3. Marcações e serviços</h2>
+  <p>
+    As marcações efetuadas por WhatsApp, telefone ou email estão sujeitas à disponibilidade do
+    salão. A prestação dos serviços de cabeleireiro e estética rege-se pelas condições acordadas
+    diretamente com o cliente no momento do atendimento.
+  </p>
+  <p>
+    As informações publicadas no website (serviços, descrições, imagens) têm carácter indicativo e
+    podem ser atualizadas sem aviso prévio.
+  </p>
+
+  <h2>4. Propriedade intelectual</h2>
+  <p>
+    Todos os conteúdos deste website — incluindo textos, imagens, logótipo e design — são
+    propriedade da {site.name} ou utilizados com autorização. É proibida a sua reprodução total ou
+    parcial sem consentimento escrito.
+  </p>
+
+  <h2>5. Ligações externas</h2>
+  <p>
+    O website pode conter ligações para sites de terceiros (por exemplo, Instagram, Facebook ou
+    Google Maps). Não nos responsabilizamos pelo conteúdo ou práticas de privacidade desses sites
+    externos.
+  </p>
+
+  <h2>6. Limitação de responsabilidade</h2>
+  <p>
+    Empregamos esforços razoáveis para manter o website atualizado e funcional, mas não garantimos
+    ausência total de erros, interrupções ou imprecisões pontuais. A utilização do site é feita por
+    conta e risco do utilizador.
+  </p>
+
+  <h2>7. Proteção de dados</h2>
+  <p>
+    O tratamento de dados pessoais está descrito na nossa <a href="/politica-de-privacidade"
+      >Política de Privacidade</a
+    >.
+  </p>
+
+  <h2>8. Alterações aos termos</h2>
+  <p>
+    Reservamo-nos o direito de alterar estes Termos de Utilização a qualquer momento. A data da
+    última atualização será indicada no topo desta página.
+  </p>
+
+  <h2>9. Lei aplicável</h2>
+  <p>
+    Estes termos regem-se pela lei portuguesa. Para questões relacionadas com a utilização deste
+    website, contacte-nos através de <a href={`mailto:${site.email}`}>{site.email}</a> ou <a
+      href={site.phoneHref}>{site.phone}</a>.
+  </p>
+
+  <p class="mt-10">
+    <a href="/">← Voltar ao início</a>
+  </p>
+</LegalLayout>

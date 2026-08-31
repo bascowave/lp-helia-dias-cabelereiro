@@ -1,0 +1,33 @@
+---
+interface Props {
+  label: string;
+  title: string;
+  description?: string;
+  align?: 'left' | 'center';
+  class?: string;
+}
+
+const {
+  label,
+  title,
+  description,
+  align = 'left',
+  class: className = '',
+} = Astro.props;
+
+const alignClass = align === 'center' ? 'text-center mx-auto' : '';
+---
+
+<div class:list={['max-w-2xl', alignClass, className]}>
+  <p class="kicker mb-4">{label}</p>
+  <h2 class="font-serif text-4xl leading-tight tracking-tight text-ink md:text-5xl lg:text-[3.25rem]">
+    {title}
+  </h2>
+  {
+    description && (
+      <p class="mt-5 text-base leading-relaxed text-ink-muted md:text-lg">
+        {description}
+      </p>
+    )
+  }
+</div>

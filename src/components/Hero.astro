@@ -1,0 +1,79 @@
+---
+import { site } from '../data/site';
+import Button from './Button.astro';
+---
+
+<section class="hero relative flex min-h-[92vh] items-end overflow-hidden md:min-h-[88vh]">
+  <div class="absolute inset-0">
+    <img
+      src="/hero/salao.jpg"
+      alt="Interior do salão Hélia Dias Cabeleireiros em Esposende"
+      width="1920"
+      height="1280"
+      class="hero-bg h-full w-full object-cover object-center"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/20 md:bg-gradient-to-r md:from-ink/85 md:via-ink/45 md:to-transparent"
+    >
+    </div>
+  </div>
+
+  <div class="relative w-full px-5 pb-14 pt-32 md:px-8 md:pb-20 lg:px-12 lg:pb-24">
+    <div class="container-wide max-w-3xl">
+      <p class="hero-kicker mb-4">{site.kicker}</p>
+      <h1
+        class="font-serif text-[2.65rem] leading-[1.02] tracking-tight text-ivory sm:text-5xl lg:text-[4.25rem]"
+      >
+        O seu cabelo.<br />
+        <span class="hero-accent">A sua melhor versão.</span>
+      </h1>
+      <p class="mt-6 max-w-xl text-base leading-relaxed text-ivory/85 md:text-lg">
+        Há mais de três décadas que cuidamos da beleza e do bem-estar de quem nos procura, com
+        experiência, atenção ao detalhe e um atendimento verdadeiramente personalizado.
+      </p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <Button href={site.whatsappHref} external>Marcar atendimento</Button>
+        <Button
+          href="#servicos"
+          variant="secondary"
+          class="!border-ivory/30 !text-ivory hover:!border-ivory/50 hover:!bg-ivory/10"
+        >
+          Conhecer os nossos serviços
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-bg {
+    image-rendering: auto;
+    transform: translateZ(0);
+  }
+
+  .hero-kicker {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgb(246 241 232 / 0.92);
+    text-shadow: 0 1px 12px rgb(0 0 0 / 0.45);
+  }
+
+  .hero-accent {
+    color: #f5dce0;
+    text-shadow: 0 2px 24px rgb(0 0 0 / 0.55);
+  }
+
+  .hero :global(.btn-primary) {
+    background: var(--color-ivory);
+    color: var(--color-ink);
+  }
+
+  .hero :global(.btn-primary:hover) {
+    background: var(--color-ivory-dark);
+  }
+</style>

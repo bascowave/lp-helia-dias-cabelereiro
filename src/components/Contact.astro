@@ -1,0 +1,51 @@
+---
+import { site } from '../data/site';
+import Button from './Button.astro';
+---
+
+<section id="contactos" class="section-padding bg-ivory-dark">
+  <div class="container-wide">
+    <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <p class="kicker mb-4">Contactos</p>
+        <h2 class="font-serif text-4xl tracking-tight text-ink md:text-5xl">Estamos em Esposende</h2>
+        <p class="mt-4 max-w-md text-base leading-relaxed text-ink-muted">
+          Marque o seu atendimento por WhatsApp ou ligue-nos. Estamos na Rua Engenheiro Losa Faria,
+          no centro de Esposende.
+        </p>
+
+        <div class="mt-10 space-y-6">
+          <div>
+            <p class="kicker mb-2">Morada</p>
+            <p class="text-lg text-ink">{site.address.street}</p>
+            <p class="text-lg text-ink">{site.address.city}</p>
+          </div>
+
+          <div>
+            <p class="kicker mb-2">Telefone</p>
+            <a href={site.phoneHref} class="text-lg text-ink transition-colors hover:text-burgundy">
+              {site.phone}
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-10">
+          <Button href={site.whatsappHref} external>Marcar atendimento</Button>
+        </div>
+      </div>
+
+      <div class="overflow-hidden rounded-sm border border-ink/10 bg-white shadow-sm">
+        <iframe
+          title="Localização Hélia Dias Cabeleireiros no Google Maps"
+          src={site.links.mapsEmbed}
+          width="100%"
+          height="100%"
+          class="min-h-[20rem] lg:min-h-full"
+          style="border:0;"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,18 @@
+---
+import { trustPoints } from '../data/site';
+---
+
+<section class="border-y border-ink/5 bg-ivory-dark py-10 md:py-12" aria-label="Pontos de confiança">
+  <div class="container-wide px-5 md:px-8 lg:px-12">
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+      {
+        trustPoints.map((point) => (
+          <div class="text-center lg:text-left">
+            <p class="font-serif text-xl tracking-tight text-ink md:text-2xl">{point.title}</p>
+            <p class="mt-1 text-sm leading-relaxed text-ink-muted">{point.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

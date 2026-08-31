@@ -1,0 +1,66 @@
+---
+import { Image } from 'astro:assets';
+import { services } from '../data/site';
+import helia3 from '../assets/images/helia3.jpg';
+import helia4 from '../assets/images/helia4.jpg';
+import SectionHeading from './SectionHeading.astro';
+
+const images = { helia3, helia4 } as const;
+
+const featured = services.filter((s) => s.featured);
+const standard = services.filter((s) => !s.featured);
+---
+
+<section id="servicos" class="section-padding">
+  <div class="container-wide">
+    <SectionHeading
+      label="Os nossos serviços"
+      title="Cuidados pensados para si"
+      description="Do corte à cor, dos tratamentos aos momentos mais especiais, trabalhamos cada serviço de forma personalizada para valorizar a sua beleza e respeitar a identidade do seu cabelo."
+    />
+
+    <div class="mt-14 grid gap-5 lg:grid-cols-2 lg:gap-6">
+      {
+        featured.map((service, index) => (
+          <article
+            class:list={[
+              'group relative overflow-hidden rounded-sm',
+              index === 0 ? 'min-h-[22rem] lg:min-h-[26rem]' : 'min-h-[20rem] lg:min-h-[26rem]',
+            ]}
+          >
+            {service.image && (
+              <Image
+                src={images[service.image]}
+                alt={service.alt ?? service.title}
+                widths={[640, 960, 1280]}
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                style={`object-position: ${service.imagePosition}`}
+              />
+            )}
+            <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/30 to-transparent" />
+            <div class="relative flex h-full flex-col justify-end p-6 md:p-8">
+              <p class="kicker mb-2 text-ivory/70">{service.id}</p>
+              <h3 class="font-serif text-3xl tracking-tight text-ivory md:text-4xl">{service.title}</h3>
+              <p class="mt-3 max-w-md text-sm leading-relaxed text-ivory/85 md:text-base">
+                {service.description}
+              </p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="mt-6 grid gap-px overflow-hidden rounded-sm border border-ink/8 bg-ink/8 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        standard.map((service) => (
+          <article class="bg-ivory p-6 md:p-7">
+            <p class="kicker mb-2">{service.id}</p>
+            <h3 class="font-serif text-xl tracking-tight text-ink">{service.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-muted">{service.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

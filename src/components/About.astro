@@ -1,0 +1,52 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/images/logo.jpg';
+---
+
+<section id="sobre" class="section-padding bg-ivory-dark">
+  <div class="container-wide">
+    <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:items-center lg:gap-20">
+      <div class="flex flex-col items-start">
+        <Image
+          src={logo}
+          alt="Hélia Dias Cabeleireiros"
+          width={120}
+          height={120}
+          class="h-24 w-24 rounded-full object-cover md:h-28 md:w-28"
+        />
+        <p class="kicker mt-8 mb-4">Sobre nós</p>
+        <h2 class="font-serif text-4xl leading-tight tracking-tight text-ink md:text-5xl">
+          Mais do que mudar o cabelo, queremos que se sinta bem.
+        </h2>
+        <p class="mt-10 font-serif text-3xl italic text-ink md:text-4xl">Hélia Dias</p>
+      </div>
+
+      <div class="space-y-5 text-base leading-relaxed text-ink-muted md:text-lg">
+        <p>
+          Desde 1990, a Hélia Dias Cabeleireiros tem uma missão simples: receber cada pessoa com
+          proximidade, compreender aquilo que procura e encontrar a solução certa para si.
+        </p>
+        <p>
+          Ao longo dos anos, acompanhámos tendências, técnicas e novas formas de cuidar do cabelo,
+          sem nunca perder aquilo que consideramos essencial: ouvir primeiro, aconselhar com
+          honestidade e cuidar de cada detalhe.
+        </p>
+        <p>
+          Porque um bom resultado começa muito antes da tesoura ou da cor. Começa por perceber quem
+          está sentado à nossa frente.
+        </p>
+
+        <dl class="mt-10 grid grid-cols-2 gap-6 border-t border-ink/10 pt-8">
+          <div>
+            <dt class="font-serif text-3xl text-ink">1990</dt>
+            <dd class="mt-1 text-sm text-ink-muted">Ano de fundação</dd>
+          </div>
+          <div>
+            <dt class="font-serif text-3xl text-ink">Esposende</dt>
+            <dd class="mt-1 text-sm text-ink-muted">No centro da cidade</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,99 @@
+@import "tailwindcss";
+@import "@fontsource/cormorant-garamond/400.css";
+@import "@fontsource/cormorant-garamond/500.css";
+@import "@fontsource/cormorant-garamond/600.css";
+@import "@fontsource/outfit/300.css";
+@import "@fontsource/outfit/400.css";
+@import "@fontsource/outfit/500.css";
+
+@theme {
+  --color-ivory: #f6f1e8;
+  --color-ivory-dark: #efe6d9;
+  --color-ink: #1c1614;
+  --color-ink-muted: #5c534f;
+  --color-burgundy: #7a1f2b;
+  --color-burgundy-dark: #631824;
+  --color-burgundy-light: #e8a0a8;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Outfit", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-ivory text-ink font-sans antialiased;
+}
+
+::selection {
+  @apply bg-burgundy/15 text-ink;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+.section-padding {
+  @apply px-5 py-20 md:px-8 lg:px-12 lg:py-28;
+}
+
+.container-narrow {
+  @apply mx-auto max-w-6xl;
+}
+
+.container-wide {
+  @apply mx-auto max-w-7xl;
+}
+
+.kicker {
+  @apply text-xs font-medium uppercase tracking-[0.22em] text-burgundy;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center rounded-sm bg-burgundy px-6 py-3.5 text-sm font-medium tracking-wide text-ivory transition-colors duration-200 hover:bg-burgundy-dark;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center rounded-sm border border-ink/20 bg-transparent px-6 py-3.5 text-sm font-medium tracking-wide text-ink transition-colors duration-200 hover:border-ink/40 hover:bg-ink/5;
+}
+
+.card-hover {
+  @apply transition-transform duration-300 hover:-translate-y-1;
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-out both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile menu — CSS-only checkbox hack */
+#nav-toggle:checked ~ .mobile-nav-panel {
+  @apply pointer-events-auto opacity-100;
+}
+
+#nav-toggle:checked ~ .mobile-nav-backdrop {
+  @apply pointer-events-auto opacity-100;
+}
+
+#nav-toggle:checked + .nav-bar .menu-icon-open {
+  @apply hidden;
+}
+
+#nav-toggle:checked + .nav-bar .menu-icon-close {
+  @apply block;
+}
