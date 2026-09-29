@@ -1,0 +1,8 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: helia
+      POSTGRES_PASSWORD: helia
+      POSTGRES_DB: helia
+    ports: ["5433:5432"]
