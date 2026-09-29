@@ -23,7 +23,10 @@ export async function runMigrations(sql: Sql): Promise<string[]> {
 
 if (import.meta.main) {
   const { sql } = await import('../src/lib/server/db.ts');
-  const aplicadas = await runMigrations(sql);
-  console.log(aplicadas.length ? `Aplicadas: ${aplicadas.join(', ')}` : 'Nada a aplicar');
-  await sql.end();
+  try {
+    const aplicadas = await runMigrations(sql);
+    console.log(aplicadas.length ? `Aplicadas: ${aplicadas.join(', ')}` : 'Nada a aplicar');
+  } finally {
+    await sql.end();
+  }
 }
