@@ -54,6 +54,15 @@ const standard = s.itens.filter((i) => !i.featured);
             <p class="kicker mb-2">{service.id}</p>
             <h3 class="font-serif text-xl tracking-tight text-ink">{service.title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-ink-muted">{service.description}</p>
+            {service.title.toLowerCase().includes('balayage') && (
+              <a
+                href="#balayage"
+                class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-burgundy transition-colors hover:text-burgundy-dark"
+              >
+                Ver antes e depois
+                <span aria-hidden="true">→</span>
+              </a>
+            )}
           </article>
         ))
       }

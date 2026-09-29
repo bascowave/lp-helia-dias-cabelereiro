@@ -1,0 +1,33 @@
+---
+import { content, type Geral } from '../lib/server/content.ts';
+import SectionHeading from './SectionHeading.astro';
+import Button from './Button.astro';
+import BeforeAfter from './BeforeAfter.astro';
+
+const g = await content.get<Geral>('geral');
+---
+
+<section id="balayage" class="section-padding scroll-mt-24">
+  <div class="container-wide">
+    <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-16">
+      <div>
+        <SectionHeading
+          label="Coloração"
+          title="Balayage, antes e depois"
+          description="Arraste o divisor para ver a transformação. A balayage ilumina o cabelo com um degradé natural, feito à medida do seu tom e do seu estilo."
+        />
+        <div class="mt-8">
+          <Button href={g.whatsappHref} external>Marcar atendimento</Button>
+        </div>
+      </div>
+
+      <BeforeAfter
+        beforeSrc="/balayage/antes.png"
+        afterSrc="/balayage/depois.png"
+        beforeAlt="Cabelo antes do tratamento de balayage"
+        afterAlt="Resultado de balayage no salão Hélia Dias Cabeleireiros"
+        caption="Balayage"
+      />
+    </div>
+  </div>
+</section>
