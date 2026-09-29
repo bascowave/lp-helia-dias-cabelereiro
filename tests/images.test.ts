@@ -34,6 +34,28 @@ describe('processImage', () => {
   });
 });
 
+describe('processImage robustez', () => {
+  it('troca largura/altura para fotos com orientação EXIF >= 5', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'up-'));
+    const buf = await sharp({ create: { width: 200, height: 100, channels: 3, background: '#c33' } })
+      .jpeg().withMetadata({ orientation: 6 }).toBuffer();
+    const r = await processImage(buf, 'image/jpeg', dir);
+    expect(r.largura).toBe(100);
+    expect(r.altura).toBe(200);
+    const meta = await sharp(join(dir, `${r.arquivo}-1600.webp`)).metadata();
+    expect(meta.width).toBe(100);
+  });
+  it('ficheiro truncado dá UploadError e não deixa ficheiros', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'up-'));
+    const raw = Buffer.alloc(400 * 400 * 3);
+    for (let i = 0; i < raw.length; i++) raw[i] = (i * 7 + (i >> 5) * 13) & 255;
+    const full = await sharp(raw, { raw: { width: 400, height: 400, channels: 3 } }).png({ compressionLevel: 0 }).toBuffer();
+    await expect(processImage(full.subarray(0, Math.floor(full.length / 2)), 'image/png', dir))
+      .rejects.toBeInstanceOf(UploadError);
+    expect(await readdir(dir)).toEqual([]);
+  });
+});
+
 describe('isValidUploadName', () => {
   it.each(['../../etc/passwd', 'x.webp', 'abc-800.webp/..', '%2e%2e', 'a'.repeat(36) + '-300.webp'])(
     'recusa %s', (n) => expect(isValidUploadName(n)).toBe(false),
