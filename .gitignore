@@ -26,3 +26,5 @@ pnpm-debug.log*
 
 # local data (uploads)
 data/
+test-results/
+playwright-report/
