@@ -1,35 +1,34 @@
 ---
-import { Image } from 'astro:assets';
-import { nav, site } from '../data/site';
-import logo from '../assets/images/logo.jpg';
+import { content, type Geral } from '../lib/server/content.ts';
+import Img from './Img.astro';
+const g = await content.get<Geral>('geral');
 ---
 
-<header class="fixed top-0 z-50 w-full">
+<header class="fixed top-[var(--promo-h,0px)] z-50 w-full">
   <input type="checkbox" id="nav-toggle" class="peer sr-only" aria-hidden="true" />
 
   <div
     class="nav-bar border-b border-ivory/10 bg-ink/35 backdrop-blur-md transition-colors duration-300"
   >
     <div class="container-wide flex items-center justify-between px-5 py-4 md:px-8 lg:px-12">
-      <a href="/" class="flex shrink-0 items-center gap-3" aria-label={site.name}>
-        <Image
-          src={logo}
-          alt={site.name}
-          width={56}
-          height={56}
+      <a href="/" class="flex shrink-0 items-center gap-3" aria-label={g.name}>
+        <Img
+          arquivo={g.logo}
+          alt={g.name}
+          sizes="56px"
           class="h-11 w-11 rounded-full object-cover ring-1 ring-ivory/20 md:h-12 md:w-12"
         />
         <span
           class="hidden font-serif text-lg leading-none tracking-tight text-ivory sm:block md:text-xl"
         >
-          Hélia Dias
+          {g.shortName}
         </span>
       </a>
 
       <div class="flex items-center gap-6">
         <nav class="hidden items-center gap-8 lg:flex" aria-label="Principal">
           {
-            nav.map((item) => (
+            g.nav.map((item) => (
               <a
                 href={item.href}
                 class="text-sm tracking-wide text-ivory/85 transition-colors hover:text-ivory"
@@ -88,7 +87,7 @@ import logo from '../assets/images/logo.jpg';
 
     <nav class="flex flex-col gap-5" aria-label="Mobile">
       {
-        nav.map((item) => (
+        g.nav.map((item) => (
           <a
             href={item.href}
             class="text-lg tracking-wide text-ink transition-colors hover:text-burgundy"
@@ -101,10 +100,10 @@ import logo from '../assets/images/logo.jpg';
 
     <div class="mt-auto pt-10">
       <a
-        href={site.phoneHref}
+        href={g.phoneHref}
         class="block text-center text-sm tracking-wide text-ink-muted transition-colors hover:text-burgundy"
       >
-        {site.phone}
+        {g.phone}
       </a>
     </div>
   </div>

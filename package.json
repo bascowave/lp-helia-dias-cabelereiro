@@ -3,26 +3,38 @@
   "type": "module",
   "version": "0.0.1",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=24.2.0"
   },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "vitest run",
+    "e2e": "playwright test",
+    "migrate": "node --env-file=.env scripts/migrate.ts",
+    "seed": "node --env-file=.env scripts/seed.ts",
+    "hash-senha": "node scripts/hash-senha.ts"
   },
   "dependencies": {
+    "@astrojs/node": "^9.5.5",
     "@astrojs/sitemap": "^3.7.4",
     "@fontsource/cormorant-garamond": "^5.3.0",
     "@fontsource/outfit": "^5.3.0",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^5.7.0",
+    "bcryptjs": "^3.0.3",
+    "postgres": "^3.4.9",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4.3.3"
   },
   "allowScripts": {
     "esbuild": true
   },
   "devDependencies": {
-    "sharp": "^0.35.4"
+    "@astrojs/check": "^0.9.4",
+    "@playwright/test": "^1.63.0",
+    "typescript": "^5.7.3",
+    "vitest": "^3.2.7"
   }
 }

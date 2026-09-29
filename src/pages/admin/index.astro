@@ -1,0 +1,17 @@
+---
+import AdminLayout from '../../components/admin/AdminLayout.astro';
+import { SECTIONS } from '../../lib/server/schemas.ts';
+import { getBanner, isBannerVisible } from '../../lib/server/banner.ts';
+const b = await getBanner();
+const estado = isBannerVisible(b, new Date()) ? 'Visível agora' : b.ativo ? 'Ativo, fora do período' : 'Desativado';
+---
+<AdminLayout title="Início">
+  <h1 class="font-serif text-4xl">Painel</h1>
+  <a href="/admin/banner" class="mt-6 flex items-center justify-between rounded-sm bg-ivory p-4 shadow-sm">
+    <span class="font-medium">Banner de promoção</span><span class="text-sm text-ink-muted">{estado}</span>
+  </a>
+  <h2 class="mt-10 font-serif text-2xl">Conteúdo do site</h2>
+  <ul class="mt-4 divide-y divide-ink/10 rounded-sm bg-ivory shadow-sm">
+    {SECTIONS.map((s) => <li><a href={`/admin/secao/${s.nome}`} class="flex justify-between p-4 hover:bg-white">{s.titulo}<span aria-hidden="true">→</span></a></li>)}
+  </ul>
+</AdminLayout>

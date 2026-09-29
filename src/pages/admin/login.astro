@@ -1,0 +1,37 @@
+---
+import AdminLayout from '../../components/admin/AdminLayout.astro';
+import { checkCredentials, clientIp, loginLimiter } from '../../lib/server/auth.ts';
+import { createSessionToken, SESSION_COOKIE, SESSION_MAX_AGE_S } from '../../lib/server/session.ts';
+
+let erro = '';
+if (Astro.request.method === 'POST') {
+  const ip = clientIp(Astro.request.headers.get('x-forwarded-for'), Astro.clientAddress);
+  const now = Date.now();
+  const secret = process.env.SESSION_SECRET ?? '';
+  if (secret.length < 32) {
+    erro = 'Servidor mal configurado: SESSION_SECRET em falta ou com menos de 32 caracteres.';
+  } else if (loginLimiter.isBlocked(ip, now)) {
+    erro = 'Demasiadas tentativas. Tente novamente dentro de 15 minutos.';
+  } else {
+    const fd = await Astro.request.formData();
+    if (await checkCredentials(String(fd.get('usuario') ?? ''), String(fd.get('senha') ?? ''))) {
+      loginLimiter.reset(ip);
+      Astro.cookies.set(SESSION_COOKIE, createSessionToken(secret, now), {
+        httpOnly: true, secure: import.meta.env.PROD, sameSite: 'strict', path: '/', maxAge: SESSION_MAX_AGE_S,
+      });
+      return Astro.redirect('/admin');
+    }
+    loginLimiter.fail(ip, now);
+    erro = 'Utilizador ou palavra-passe incorretos.';
+  }
+}
+---
+<AdminLayout title="Entrar">
+  <form method="post" class="mx-auto max-w-sm space-y-4 rounded-sm bg-ivory p-6 shadow-sm">
+    <h1 class="font-serif text-3xl">Entrar</h1>
+    {erro && <p role="alert" class="text-sm text-burgundy">{erro}</p>}
+    <label class="block text-sm">Utilizador<input name="usuario" autocomplete="username" required class="mt-1 w-full rounded-sm border border-ink/20 px-3 py-2" /></label>
+    <label class="block text-sm">Palavra-passe<input name="senha" type="password" autocomplete="current-password" required class="mt-1 w-full rounded-sm border border-ink/20 px-3 py-2" /></label>
+    <button class="btn-primary w-full">Entrar</button>
+  </form>
+</AdminLayout>

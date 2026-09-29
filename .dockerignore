@@ -1,9 +1,14 @@
 node_modules
 dist
+data
+e2e
+test-results
 .astro
 .git
 .github
 .vscode
+.claude
+.superpowers
 *.md
 !README.md
 .env

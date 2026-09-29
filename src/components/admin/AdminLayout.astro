@@ -1,0 +1,41 @@
+---
+import '../../styles/global.css';
+import { SECTIONS } from '../../lib/server/schemas.ts';
+interface Props { title: string }
+const { title } = Astro.props;
+const path = Astro.url.pathname.replace(/\/+$/, '');
+const logado = path !== '/admin/login';
+const link = (href: string) => `block rounded-sm px-3 py-2 text-sm ${path === href ? 'bg-burgundy text-ivory' : 'hover:bg-ivory-dark'}`;
+---
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>{title} · Painel</title>
+  </head>
+  <body class="min-h-screen bg-ivory-dark text-ink">
+    <header class="border-b border-ink/10 bg-ivory">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+        <a href="/admin" class="font-serif text-xl">Painel</a>
+        <nav class="flex gap-4 text-sm">
+          <a href="/" target="_blank" class="underline">Ver site</a>
+          <form method="post" action="/admin/logout"><button class="underline">Sair</button></form>
+        </nav>
+      </div>
+    </header>
+    <div class="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8 md:flex-row">
+      {logado && (
+        <aside class="md:w-56 md:shrink-0">
+          <nav class="space-y-1 rounded-sm bg-ivory p-2 shadow-sm md:sticky md:top-4" aria-label="Secções do painel">
+            <a href="/admin" class={link('/admin')}>Início</a>
+            <a href="/admin/banner" class={link('/admin/banner')}>Banner de promoção</a>
+            <p class="px-3 pb-1 pt-4 text-xs font-medium uppercase tracking-wide text-ink-muted">Conteúdo do site</p>
+            {SECTIONS.map((s) => <a href={`/admin/secao/${s.nome}`} class={link(`/admin/secao/${s.nome}`)}>{s.titulo}</a>)}
+          </nav>
+        </aside>
+      )}
+      <main class="min-w-0 flex-1"><slot /></main>
+    </div>
+  </body>
+</html>

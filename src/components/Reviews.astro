@@ -1,14 +1,17 @@
 ---
-import { googleRating, reviews } from '../data/reviews';
+import { content, type Avaliacoes } from '../lib/server/content.ts';
+import { imgSrc } from '../lib/server/images.ts';
 import ReviewAvatar from './ReviewAvatar.astro';
 import SectionHeading from './SectionHeading.astro';
+
+const r = await content.get<Avaliacoes>('avaliacoes');
 ---
 
 <section class="section-padding bg-white/40">
   <div class="container-wide">
     <SectionHeading
-      label="Quem nos visita"
-      title="A melhor recomendação vem de quem já passou pelas nossas mãos."
+      label={r.label}
+      title={r.title}
       align="center"
       class="mx-auto text-center"
     />
@@ -37,16 +40,16 @@ import SectionHeading from './SectionHeading.astro';
       </div>
       <span class="hidden text-ink/20 sm:inline" aria-hidden="true">·</span>
       <p class="text-sm font-medium text-ink">
-        {googleRating.score.toFixed(1).replace('.', ',')}/5 · {googleRating.count} críticas
+        {r.score.toFixed(1).replace('.', ',')}/5 · {r.count} críticas
       </p>
     </div>
 
     <div class="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
       {
-        reviews.map((review) => (
+        r.itens.map((review) => (
           <article class="google-review flex h-full flex-col rounded-lg border border-ink/8 bg-ivory p-5 shadow-sm md:p-6">
             <div class="flex items-start gap-3">
-              <ReviewAvatar author={review.author} avatar={review.avatar} />
+              <ReviewAvatar author={review.author} avatar={review.avatar ? imgSrc(review.avatar, 800) : null} />
               <div class="min-w-0 flex-1">
                 <p class="truncate font-medium text-ink">{review.author}</p>
                 <p class="text-xs text-ink-muted">{review.relativeTime}</p>

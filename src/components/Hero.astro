@@ -1,19 +1,19 @@
 ---
-import { site } from '../data/site';
+import { content, type Geral, type Hero } from '../lib/server/content.ts';
 import Button from './Button.astro';
+import Img from './Img.astro';
+const g = await content.get<Geral>('geral');
+const h = await content.get<Hero>('hero');
 ---
 
 <section class="hero relative flex min-h-[92vh] items-end overflow-hidden md:min-h-[88vh]">
   <div class="absolute inset-0">
-    <img
-      src="/hero/salao.jpg"
-      alt="Interior do salão Hélia Dias Cabeleireiros em Esposende"
-      width="1920"
-      height="1280"
+    <Img
+      arquivo={h.imagem}
+      alt={h.imagemAlt}
       class="hero-bg h-full w-full object-cover object-center"
       loading="eager"
       fetchpriority="high"
-      decoding="async"
     />
     <div
       class="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/20 md:bg-gradient-to-r md:from-ink/85 md:via-ink/45 md:to-transparent"
@@ -23,25 +23,24 @@ import Button from './Button.astro';
 
   <div class="relative w-full px-5 pb-14 pt-32 md:px-8 md:pb-20 lg:px-12 lg:pb-24">
     <div class="container-wide max-w-3xl">
-      <p class="hero-kicker mb-4">{site.kicker}</p>
+      <p class="hero-kicker mb-4">{g.kicker}</p>
       <h1
         class="font-serif text-[2.65rem] leading-[1.02] tracking-tight text-ivory sm:text-5xl lg:text-[4.25rem]"
       >
-        O seu cabelo.<br />
-        <span class="hero-accent">A sua melhor versão.</span>
+        {h.titulo}<br />
+        <span class="hero-accent">{h.destaque}</span>
       </h1>
       <p class="mt-6 max-w-xl text-base leading-relaxed text-ivory/85 md:text-lg">
-        Há mais de três décadas que cuidamos da beleza e do bem-estar de quem nos procura, com
-        experiência, atenção ao detalhe e um atendimento verdadeiramente personalizado.
+        {h.texto}
       </p>
       <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-        <Button href={site.whatsappHref} external>Marcar atendimento</Button>
+        <Button href={g.whatsappHref} external>{h.botaoPrimario}</Button>
         <Button
           href="#servicos"
           variant="secondary"
           class="!border-ivory/30 !text-ivory hover:!border-ivory/50 hover:!bg-ivory/10"
         >
-          Conhecer os nossos serviços
+          {h.botaoSecundario}
         </Button>
       </div>
     </div>

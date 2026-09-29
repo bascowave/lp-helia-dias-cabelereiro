@@ -1,22 +1,19 @@
 ---
-import { Image } from 'astro:assets';
-import { services } from '../data/site';
-import helia3 from '../assets/images/helia3.jpg';
-import helia4 from '../assets/images/helia4.jpg';
+import { content, type Servicos } from '../lib/server/content.ts';
+import Img from './Img.astro';
 import SectionHeading from './SectionHeading.astro';
 
-const images = { helia3, helia4 } as const;
-
-const featured = services.filter((s) => s.featured);
-const standard = services.filter((s) => !s.featured);
+const s = await content.get<Servicos>('servicos');
+const featured = s.itens.filter((i) => i.featured);
+const standard = s.itens.filter((i) => !i.featured);
 ---
 
 <section id="servicos" class="section-padding">
   <div class="container-wide">
     <SectionHeading
-      label="Os nossos serviços"
-      title="Cuidados pensados para si"
-      description="Do corte à cor, dos tratamentos aos momentos mais especiais, trabalhamos cada serviço de forma personalizada para valorizar a sua beleza e respeitar a identidade do seu cabelo."
+      label={s.label}
+      title={s.title}
+      description={s.description}
     />
 
     <div class="mt-14 grid gap-5 lg:grid-cols-2 lg:gap-6">
@@ -29,13 +26,12 @@ const standard = services.filter((s) => !s.featured);
             ]}
           >
             {service.image && (
-              <Image
-                src={images[service.image]}
-                alt={service.alt ?? service.title}
-                widths={[640, 960, 1280]}
+              <Img
+                arquivo={service.image}
+                alt={service.alt || service.title}
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                style={`object-position: ${service.imagePosition}`}
+                style={service.imagePosition ? `object-position: ${service.imagePosition}` : undefined}
               />
             )}
             <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/30 to-transparent" />

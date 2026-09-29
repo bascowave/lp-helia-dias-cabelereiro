@@ -1,7 +1,11 @@
 ---
-import { Image } from 'astro:assets';
-import { nav, site } from '../data/site';
-import logo from '../assets/images/logo.jpg';
+import { content, type Geral, type Rodape } from '../lib/server/content.ts';
+import Img from './Img.astro';
+
+const g = await content.get<Geral>('geral');
+const rf = await content.get<Rodape>('rodape');
+const LIVRO_RECLAMACOES = 'https://www.livroreclamacoes.pt/inicio';
+const LOCATION = 'Esposende, Portugal';
 
 const currentYear = new Date().getFullYear();
 ---
@@ -14,25 +18,23 @@ const currentYear = new Date().getFullYear();
       <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-10">
         <div class="sm:col-span-2 lg:col-span-4">
           <a href="/" class="inline-flex items-center gap-3.5">
-            <Image
-              src={logo}
-              alt={site.name}
-              width={64}
-              height={64}
+            <Img
+              arquivo={g.logo}
+              alt={g.name}
+              sizes="64px"
               class="h-14 w-14 rounded-full object-cover ring-1 ring-ivory/15"
             />
             <div>
-              <p class="font-serif text-2xl leading-none tracking-tight">Hélia Dias</p>
+              <p class="font-serif text-2xl leading-none tracking-tight">{g.shortName}</p>
               <p class="mt-1 text-xs tracking-[0.18em] text-ivory/55 uppercase">
-                {site.tagline}
+                {g.tagline}
               </p>
             </div>
           </a>
           <p class="mt-5 max-w-xs text-sm leading-relaxed text-ivory/70">
-            Salão de cabeleireiro e estética em Esposende, com atendimento personalizado desde
-            1990.
+            {rf.texto}
           </p>
-          <p class="footer-label mt-6">Desde 1990 · Esposende</p>
+          <p class="footer-label mt-6">{rf.selo}</p>
         </div>
 
         <div class="lg:col-span-3">
@@ -40,35 +42,35 @@ const currentYear = new Date().getFullYear();
           <ul class="space-y-4 text-sm">
             <li>
               <a
-                href={site.links.googleMaps}
+                href={g.googleMaps}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="group block transition-colors hover:text-ivory"
               >
                 <span class="text-ivory/50">Morada</span>
                 <span class="mt-0.5 block leading-relaxed text-ivory/85 group-hover:text-ivory">
-                  {site.address.street}
+                  {g.street}
                   <br />
-                  {site.address.postalCode} {site.address.city}
+                  {g.postalCode} {g.city}
                 </span>
               </a>
             </li>
             <li>
               <a
-                href={site.phoneHref}
+                href={g.phoneHref}
                 class="group block transition-colors hover:text-ivory"
               >
                 <span class="text-ivory/50">Telefone</span>
-                <span class="mt-0.5 block text-ivory/85 group-hover:text-ivory">{site.phone}</span>
+                <span class="mt-0.5 block text-ivory/85 group-hover:text-ivory">{g.phone}</span>
               </a>
             </li>
             <li>
               <a
-                href={`mailto:${site.email}`}
+                href={`mailto:${g.email}`}
                 class="group block transition-colors hover:text-ivory"
               >
                 <span class="text-ivory/50">Email</span>
-                <span class="mt-0.5 block text-ivory/85 group-hover:text-ivory">{site.email}</span>
+                <span class="mt-0.5 block text-ivory/85 group-hover:text-ivory">{g.email}</span>
               </a>
             </li>
           </ul>
@@ -79,7 +81,7 @@ const currentYear = new Date().getFullYear();
           <nav aria-label="Rodapé">
             <ul class="space-y-2.5">
               {
-                nav.map((item) => (
+                g.nav.map((item) => (
                   <li>
                     <a
                       href={item.href}
@@ -99,7 +101,7 @@ const currentYear = new Date().getFullYear();
           <ul class="space-y-2.5">
             <li>
               <a
-                href={site.links.instagram}
+                href={g.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="inline-flex items-center gap-2 text-sm text-ivory/75 transition-colors hover:text-ivory"
@@ -112,7 +114,7 @@ const currentYear = new Date().getFullYear();
             </li>
             <li>
               <a
-                href={site.links.facebook}
+                href={g.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="inline-flex items-center gap-2 text-sm text-ivory/75 transition-colors hover:text-ivory"
@@ -125,7 +127,7 @@ const currentYear = new Date().getFullYear();
             </li>
             <li>
               <a
-                href={site.links.googleReviews}
+                href={g.googleReviews}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="inline-flex items-center gap-2 text-sm text-ivory/75 transition-colors hover:text-ivory"
@@ -142,7 +144,7 @@ const currentYear = new Date().getFullYear();
           </ul>
 
           <a
-            href={site.links.livroReclamacoes}
+            href={LIVRO_RECLAMACOES}
             target="_blank"
             rel="noopener noreferrer"
             class="mt-8 inline-block opacity-85 transition-opacity hover:opacity-100"
@@ -167,7 +169,7 @@ const currentYear = new Date().getFullYear();
     <div
       class="container-wide flex flex-col gap-4 px-5 py-6 text-sm text-ivory/45 md:flex-row md:items-center md:justify-between md:px-8 lg:px-12"
     >
-      <p>© {currentYear} {site.name}</p>
+      <p>© {currentYear} {g.name}</p>
       <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
         <a href="/politica-de-privacidade" class="transition-colors hover:text-ivory/70">
           Política de Privacidade
@@ -176,7 +178,7 @@ const currentYear = new Date().getFullYear();
           Termos de Utilização
         </a>
         <span class="text-ivory/30" aria-hidden="true">·</span>
-        <span class="text-ivory/40">{site.location}</span>
+        <span class="text-ivory/40">{LOCATION}</span>
       </div>
     </div>
   </div>

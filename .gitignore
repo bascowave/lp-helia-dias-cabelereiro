@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+.superpowers/
+
+# local data (uploads)
+data/
+test-results/
+playwright-report/
