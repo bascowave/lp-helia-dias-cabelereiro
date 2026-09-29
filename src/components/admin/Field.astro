@@ -1,0 +1,42 @@
+---
+import type { Field } from '../../lib/server/schemas.ts';
+import ImageField from './ImageField.astro';
+import Self from './Field.astro';
+
+interface Props { field: Field; name: string; value: unknown; imagens: { arquivo: string; alt: string }[] }
+const { field, name, value, imagens } = Astro.props;
+const input = 'mt-1 w-full rounded-sm border border-ink/20 px-3 py-2 text-sm';
+const itens = field.type === 'list' ? [...((value as Record<string, unknown>[]) ?? []), {}] : [];
+---
+{field.type === 'list' ? (
+  <fieldset class="space-y-4">
+    <legend class="font-serif text-xl">{field.label}</legend>
+    {itens.map((item, i) => {
+      const novo = i === itens.length - 1;
+      return (
+        <div class="space-y-3 rounded-sm border border-ink/10 bg-white/60 p-4">
+          <div class="flex items-center justify-between text-sm">
+            <strong>{novo ? `+ Novo ${field.itemLabel.toLowerCase()} (deixe em branco para ignorar)` : `${field.itemLabel} ${i + 1}`}</strong>
+            <div class="flex items-center gap-4">
+              <label>Ordem <input type="number" name={`${name}.${i}._ordem`} value={i + 1} class="w-16 rounded-sm border border-ink/20 px-2 py-1" /></label>
+              {!novo && <label><input type="checkbox" name={`${name}.${i}._remover`} /> Remover</label>}
+            </div>
+          </div>
+          {field.fields.map((sub) => <Self field={sub} name={`${name}.${i}.${sub.name}`} value={(item as Record<string, unknown>)[sub.name]} imagens={imagens} />)}
+        </div>
+      );
+    })}
+  </fieldset>
+) : field.type === 'image' ? (
+  <ImageField name={name} label={field.label} value={String(value ?? '')} imagens={imagens} />
+) : field.type === 'boolean' ? (
+  <label class="flex items-center gap-2 text-sm"><input type="checkbox" name={name} checked={value === true} /> {field.label}</label>
+) : field.type === 'textarea' || field.type === 'html' ? (
+  <label class="block text-sm">{field.label}
+    <textarea name={name} rows={field.type === 'html' ? 24 : 5} maxlength={field.max} class:list={[input, field.type === 'html' && 'font-mono text-xs']}>{String(value ?? '')}</textarea>
+  </label>
+) : (
+  <label class="block text-sm">{field.label}
+    <input name={name} inputmode={field.type === 'number' ? 'decimal' : undefined} value={value == null ? '' : String(value)} maxlength={field.max} class={input} />
+  </label>
+)}

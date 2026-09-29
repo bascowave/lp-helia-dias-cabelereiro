@@ -1,0 +1,16 @@
+---
+import { imgSrc } from '../../lib/server/images.ts';
+interface Props { name: string; label: string; value: string; imagens: { arquivo: string; alt: string }[] }
+const { name, label, value, imagens } = Astro.props;
+---
+<fieldset class="space-y-2">
+  <legend class="text-sm font-medium">{label}</legend>
+  {value && <img src={imgSrc(value, 800)} alt="" class="h-24 w-auto rounded-sm border border-ink/10" />}
+  <select name={name} class="w-full rounded-sm border border-ink/20 px-2 py-1.5 text-sm">
+    <option value="">— sem imagem —</option>
+    {imagens.map((i) => <option value={i.arquivo} selected={i.arquivo === value}>{i.alt || i.arquivo}</option>)}
+  </select>
+  <label class="block text-xs text-ink-muted">ou enviar nova (JPG, PNG, WebP, máx. 10 MB)
+    <input type="file" name={`${name}__file`} accept="image/jpeg,image/png,image/webp" class="mt-1 block text-sm" />
+  </label>
+</fieldset>

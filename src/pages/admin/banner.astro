@@ -1,0 +1,48 @@
+---
+import AdminLayout from '../../components/admin/AdminLayout.astro';
+import ImageField from '../../components/admin/ImageField.astro';
+import { getBanner, saveBanner, parseBannerForm, toLocalInput, isBannerVisible } from '../../lib/server/banner.ts';
+import { listImages, saveUpload } from '../../lib/server/images.ts';
+import { collectUploads } from '../../lib/server/uploads-from-form.ts';
+
+let erros: string[] = [];
+let b = await getBanner();
+const salvo = Astro.url.searchParams.has('salvo');
+
+if (Astro.request.method === 'POST') {
+  const fd = await Astro.request.formData();
+  const up = await collectUploads(fd, (f) => saveUpload(f));
+  const r = parseBannerForm(fd, up.uploaded.imagem ?? null);
+  erros = [...up.erros, ...r.erros];
+  if (erros.length === 0) { await saveBanner(r.dados); return Astro.redirect('/admin/banner?salvo'); }
+  b = { ...r.dados, atualizado_em: b.atualizado_em };
+}
+const imagens = await listImages();
+const input = 'mt-1 w-full rounded-sm border border-ink/20 px-3 py-2 text-sm';
+const estado = isBannerVisible(b, new Date()) ? 'Visível agora no site' : b.ativo ? 'Ativo, mas fora do período definido' : 'Desativado';
+---
+<AdminLayout title="Banner">
+  <a href="/admin" class="text-sm underline">← Voltar</a>
+  <h1 class="mt-2 font-serif text-4xl">Banner de promoção</h1>
+  <p class="mt-1 text-sm text-ink-muted">Estado: {estado}</p>
+  {salvo && <p role="status" class="mt-4 rounded-sm bg-green-100 p-3 text-sm">Guardado.</p>}
+  {erros.length > 0 && <div role="alert" class="mt-4 rounded-sm bg-red-100 p-3 text-sm"><ul class="list-disc pl-5">{erros.map((e) => <li>{e}</li>)}</ul></div>}
+  <form method="post" enctype="multipart/form-data" class="mt-6 space-y-5">
+    <label class="flex items-center gap-2 font-medium"><input type="checkbox" name="ativo" checked={b.ativo} /> Banner ativo</label>
+    <fieldset class="flex gap-6 text-sm"><legend class="mb-1 font-medium">Formato</legend>
+      <label><input type="radio" name="modo" value="faixa" checked={b.modo === 'faixa'} /> Faixa no topo</label>
+      <label><input type="radio" name="modo" value="popup" checked={b.modo === 'popup'} /> Pop-up</label>
+    </fieldset>
+    <label class="block text-sm">Título<input name="titulo" value={b.titulo} maxlength="120" class={input} /></label>
+    <label class="block text-sm">Texto<textarea name="texto" rows="3" maxlength="500" class={input}>{b.texto}</textarea></label>
+    <ImageField name="imagem" label="Imagem (só no pop-up)" value={b.imagem ?? ''} imagens={imagens} />
+    <label class="block text-sm">Link do botão<input name="link" value={b.link ?? ''} placeholder="https://wa.me/..." class={input} /></label>
+    <label class="block text-sm">Texto do botão<input name="texto_botao" value={b.texto_botao ?? ''} placeholder="Saber mais" class={input} /></label>
+    <div class="grid gap-4 sm:grid-cols-2">
+      <label class="block text-sm">Início (opcional)<input type="datetime-local" name="inicio" value={toLocalInput(b.inicio)} class={input} /></label>
+      <label class="block text-sm">Fim (opcional)<input type="datetime-local" name="fim" value={toLocalInput(b.fim)} class={input} /></label>
+    </div>
+    <button class="btn-primary">Guardar</button>
+  </form>
+  <p class="mt-10 text-sm text-ink-muted">Pré-visualização: abra o site num separador anónimo para ver o banner tal como os visitantes (o fecho fica guardado no navegador).</p>
+</AdminLayout>

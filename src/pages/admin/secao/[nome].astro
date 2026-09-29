@@ -1,0 +1,46 @@
+---
+import AdminLayout from '../../../components/admin/AdminLayout.astro';
+import Field from '../../../components/admin/Field.astro';
+import { getSchema } from '../../../lib/server/schemas.ts';
+import { parseForm, validate } from '../../../lib/server/form.ts';
+import { content, saveSection } from '../../../lib/server/content.ts';
+import { listImages, saveUpload } from '../../../lib/server/images.ts';
+import { collectUploads } from '../../../lib/server/uploads-from-form.ts';
+
+const schema = getSchema(Astro.params.nome ?? '');
+if (!schema) return new Response('Seção inexistente', { status: 404 });
+
+let erros: string[] = [];
+let valores: Record<string, unknown>;
+let salvo = Astro.url.searchParams.has('salvo');
+
+if (Astro.request.method === 'POST') {
+  const fd = await Astro.request.formData();
+  const up = await collectUploads(fd, (f) => saveUpload(f));
+  valores = parseForm(schema.fields, fd, up.uploaded);
+  erros = [...up.erros, ...validate(schema.fields, valores)];
+  if (erros.length === 0) {
+    await saveSection(schema.nome, valores);
+    return Astro.redirect(`/admin/secao/${schema.nome}?salvo`);
+  }
+  salvo = false;
+} else {
+  valores = await content.get<Record<string, unknown>>(schema.nome);
+}
+const imagens = await listImages();
+---
+<AdminLayout title={schema.titulo}>
+  <a href="/admin" class="text-sm underline">← Voltar</a>
+  <h1 class="mt-2 font-serif text-4xl">{schema.titulo}</h1>
+  {salvo && <p role="status" class="mt-4 rounded-sm bg-green-100 p-3 text-sm">Guardado. O site já mostra as alterações.</p>}
+  {erros.length > 0 && (
+    <div role="alert" class="mt-4 rounded-sm bg-red-100 p-3 text-sm">
+      <p class="font-medium">Não foi possível guardar:</p>
+      <ul class="list-disc pl-5">{erros.map((e) => <li>{e}</li>)}</ul>
+    </div>
+  )}
+  <form method="post" enctype="multipart/form-data" class="mt-6 space-y-5">
+    {schema.fields.map((f) => <Field field={f} name={f.name} value={valores[f.name]} imagens={imagens} />)}
+    <div class="sticky bottom-0 border-t border-ink/10 bg-ivory-dark py-3"><button class="btn-primary">Guardar</button></div>
+  </form>
+</AdminLayout>
