@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source inline("mt-10");
 @import "@fontsource/cormorant-garamond/400.css";
 @import "@fontsource/cormorant-garamond/500.css";
 @import "@fontsource/cormorant-garamond/600.css";
