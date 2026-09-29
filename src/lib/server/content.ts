@@ -2,27 +2,54 @@ import type { SectionName } from './schemas.ts';
 
 export class ContentUnavailableError extends Error {}
 
-type Entry = { valor: unknown; fresco: boolean };
+type Entry = { valor: unknown; fresco: boolean; retryAfter: number };
 
-export function createContentStore(query: (nome: string) => Promise<unknown | undefined>) {
+const RETRY_MS = 5000;
+
+export function createContentStore(
+  query: (nome: string) => Promise<unknown | undefined>,
+  now: () => number = () => Date.now(),
+) {
   const cache = new Map<string, Entry>();
+  const inflight = new Map<string, Promise<unknown>>();
+  const versoes = new Map<string, number>();
+
+  async function ler(nome: string, versao: number): Promise<unknown> {
+    try {
+      const v = await query(nome);
+      if (v === undefined) throw new ContentUnavailableError(`Seção ${nome} em falta`);
+      if ((versoes.get(nome) ?? 0) === versao) cache.set(nome, { valor: v, fresco: true, retryAfter: 0 });
+      return v;
+    } catch (e) {
+      const c = cache.get(nome);
+      if (c) {
+        c.retryAfter = now() + RETRY_MS;
+        return c.valor;
+      }
+      throw e instanceof ContentUnavailableError ? e : new ContentUnavailableError(String(e));
+    }
+  }
+
   return {
     async get<T>(nome: SectionName): Promise<T> {
       const c = cache.get(nome);
       if (c?.fresco) return c.valor as T;
-      try {
-        const v = await query(nome);
-        if (v === undefined) throw new ContentUnavailableError(`Seção ${nome} em falta`);
-        cache.set(nome, { valor: v, fresco: true });
-        return v as T;
-      } catch (e) {
-        if (c) return c.valor as T;
-        throw e instanceof ContentUnavailableError ? e : new ContentUnavailableError(String(e));
+      if (c && c.retryAfter > now()) return c.valor as T;
+      let p = inflight.get(nome);
+      if (!p) {
+        const novo: Promise<unknown> = ler(nome, versoes.get(nome) ?? 0).finally(() => {
+          if (inflight.get(nome) === novo) inflight.delete(nome);
+        });
+        p = novo;
+        inflight.set(nome, p);
       }
+      return (await p) as T;
     },
     invalidate(nome: SectionName) {
+      versoes.set(nome, (versoes.get(nome) ?? 0) + 1);
+      inflight.delete(nome);
       const c = cache.get(nome);
-      if (c) c.fresco = false;
+      if (c) { c.fresco = false; c.retryAfter = 0; }
     },
   };
 }
