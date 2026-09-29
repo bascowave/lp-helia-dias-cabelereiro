@@ -28,4 +28,24 @@ describe('LoginLimiter', () => {
     l.reset('a');
     expect(l.isBlocked('a', 0)).toBe(false);
   });
+  it('fail não estende bloqueio enquanto bloqueado', () => {
+    const l = new LoginLimiter();
+    for (let i = 0; i < 5; i++) l.fail('1.1.1.1', 0);
+    expect(l.isBlocked('1.1.1.1', 1000)).toBe(true);
+    l.fail('1.1.1.1', 10 * 60_000);
+    expect(l.isBlocked('1.1.1.1', 15 * 60_000 + 1)).toBe(false);
+  });
+  it('contador decai após expiração do bloqueio', () => {
+    const l = new LoginLimiter();
+    for (let i = 0; i < 4; i++) l.fail('1.1.1.1', 0);
+    l.fail('1.1.1.1', 16 * 60_000);
+    expect(l.isBlocked('1.1.1.1', 16 * 60_000 + 1)).toBe(false);
+  });
+  it('entrada removida após expiração, falhas subsequentes não bloqueiam imediatamente', () => {
+    const l = new LoginLimiter();
+    for (let i = 0; i < 4; i++) l.fail('1.1.1.1', 0);
+    expect(l.isBlocked('1.1.1.1', 16 * 60_000)).toBe(false);
+    for (let i = 0; i < 4; i++) l.fail('1.1.1.1', 16 * 60_000);
+    expect(l.isBlocked('1.1.1.1', 16 * 60_000)).toBe(false);
+  });
 });

@@ -22,4 +22,17 @@ describe('sessão', () => {
     expect(verifySessionToken(undefined, S, T0)).toBe(false);
     expect(verifySessionToken('lixo', S, T0)).toBe(false);
   });
+  it('rejeita token com segredo vazio', () => {
+    expect(verifySessionToken(createSessionToken(S, T0), '', T0)).toBe(false);
+  });
+  it('createSessionToken lança erro com segredo vazio', () => {
+    expect(() => createSessionToken('', T0)).toThrow('SESSION_SECRET vazio');
+  });
+  it('rejeita token forjado com segredo vazio', () => {
+    const { createHmac } = require('node:crypto');
+    const exp = String(T0 + 1000);
+    const sig = createHmac('sha256', '').update(exp).digest('base64url');
+    const token = `${exp}.${sig}`;
+    expect(verifySessionToken(token, '', T0)).toBe(false);
+  });
 });

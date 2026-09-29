@@ -23,6 +23,15 @@ export class LoginLimiter {
 
   fail(ip: string, now: number): void {
     const f = this.falhas.get(ip) ?? { n: 0, ate: 0 };
+
+    // Se já bloqueado, não estende o bloqueio
+    if (f.n >= MAX_FALHAS && now <= f.ate) return;
+
+    // Se bloqueio expirou, reinicia a contagem
+    if (now > f.ate) {
+      f.n = 0;
+    }
+
     f.n += 1;
     f.ate = now + BLOQUEIO_MS;
     this.falhas.set(ip, f);
