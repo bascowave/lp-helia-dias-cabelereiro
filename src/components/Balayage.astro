@@ -1,0 +1,33 @@
+---
+import { balayage, site } from '../data/site';
+import beforeImage from '../assets/images/balayage-antes.png';
+import afterImage from '../assets/images/imagem2.png';
+import SectionHeading from './SectionHeading.astro';
+import Button from './Button.astro';
+import BeforeAfter from './BeforeAfter.astro';
+---
+
+<section id="balayage" class="section-padding scroll-mt-24">
+  <div class="container-wide">
+    <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-16">
+      <div>
+        <SectionHeading
+          label={balayage.label}
+          title={balayage.title}
+          description={balayage.description}
+        />
+        <div class="mt-8">
+          <Button href={site.whatsappHref} external>Marcar atendimento</Button>
+        </div>
+      </div>
+
+      <BeforeAfter
+        before={beforeImage}
+        after={afterImage}
+        beforeAlt={balayage.beforeAlt}
+        afterAlt={balayage.afterAlt}
+        caption={balayage.caption}
+      />
+    </div>
+  </div>
+</section>

@@ -79,6 +79,7 @@ export const services = [
     description:
       'Cor, madeixas, balayage e técnicas de iluminação para um resultado natural, harmonioso e à sua medida.',
     featured: false,
+    href: '#balayage',
   },
   {
     id: '03',
@@ -112,6 +113,16 @@ export const services = [
     featured: false,
   },
 ] as const;
+
+export const balayage = {
+  label: 'Coloração',
+  title: 'Balayage, antes e depois',
+  description:
+    'Arraste o divisor para ver a transformação. A balayage ilumina o cabelo com um degradé natural, feito à medida do seu tom e do seu estilo.',
+  caption: 'Balayage',
+  beforeAlt: 'Cabelo antes do tratamento de balayage',
+  afterAlt: 'Resultado de balayage no salão Hélia Dias Cabeleireiros',
+} as const;
 
 /** Imagens da galeria */
 export const galleryItems = [
