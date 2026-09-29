@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { content, type Geral, type Hero } from '../lib/server/content.ts';
 import { imgSrc } from '../lib/server/images.ts';
+import PromoBanner from '../components/PromoBanner.astro';
 
 interface Props {
   title?: string;
@@ -70,6 +71,7 @@ const jsonLd = {
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
+    <PromoBanner />
     <slot />
   </body>
 </html>

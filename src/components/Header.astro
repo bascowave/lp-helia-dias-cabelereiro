@@ -4,7 +4,7 @@ import Img from './Img.astro';
 const g = await content.get<Geral>('geral');
 ---
 
-<header class="fixed top-0 z-50 w-full">
+<header class="fixed top-[var(--promo-h,0px)] z-50 w-full">
   <input type="checkbox" id="nav-toggle" class="peer sr-only" aria-hidden="true" />
 
   <div
