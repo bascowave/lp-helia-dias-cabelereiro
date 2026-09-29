@@ -1,0 +1,31 @@
+import { describe, it, expect } from 'vitest';
+import bcrypt from 'bcryptjs';
+import { checkCredentials, LoginLimiter } from '../src/lib/server/auth.ts';
+
+const env = { ADMIN_USER: 'admin', ADMIN_PASSWORD_HASH: bcrypt.hashSync('segredo', 4) };
+
+describe('credenciais', () => {
+  it('aceita certas', async () => expect(await checkCredentials('admin', 'segredo', env)).toBe(true));
+  it('recusa senha errada', async () => expect(await checkCredentials('admin', 'x', env)).toBe(false));
+  it('recusa usuário errado', async () => expect(await checkCredentials('outro', 'segredo', env)).toBe(false));
+  it('recusa sem hash configurado', async () =>
+    expect(await checkCredentials('admin', 'segredo', { ADMIN_USER: 'admin' })).toBe(false));
+});
+
+describe('LoginLimiter', () => {
+  it('bloqueia após 5 falhas e libera após 15 min', () => {
+    const l = new LoginLimiter();
+    for (let i = 0; i < 4; i++) l.fail('1.1.1.1', 0);
+    expect(l.isBlocked('1.1.1.1', 0)).toBe(false);
+    l.fail('1.1.1.1', 0);
+    expect(l.isBlocked('1.1.1.1', 1000)).toBe(true);
+    expect(l.isBlocked('2.2.2.2', 1000)).toBe(false);
+    expect(l.isBlocked('1.1.1.1', 15 * 60_000 + 1)).toBe(false);
+  });
+  it('reset limpa', () => {
+    const l = new LoginLimiter();
+    for (let i = 0; i < 5; i++) l.fail('a', 0);
+    l.reset('a');
+    expect(l.isBlocked('a', 0)).toBe(false);
+  });
+});
