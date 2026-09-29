@@ -101,7 +101,7 @@
       {
         "id": "04",
         "title": "Alisamento & Transformação",
-        "description": "Soluções profissionais para controlar o volume, alinhar o cabelo e facilitar o seu dia a dia.",
+        "description": "Alisamento brasileiro e outras soluções profissionais para controlar o volume, alinhar o cabelo e facilitar o seu dia a dia.",
         "featured": false,
         "image": "",
         "alt": "",
@@ -118,8 +118,44 @@
       },
       {
         "id": "06",
-        "title": "Estética & Beleza",
-        "description": "Um espaço onde encontra outros cuidados de beleza e bem-estar para complementar o seu momento.",
+        "title": "Extensões",
+        "description": "Extensões para ganhar comprimento e volume, aplicadas com cuidado para um resultado natural.",
+        "featured": false,
+        "image": "",
+        "alt": "",
+        "imagePosition": ""
+      },
+      {
+        "id": "07",
+        "title": "Barbearia",
+        "description": "Cortes e acabamentos masculinos com precisão e atenção ao detalhe.",
+        "featured": false,
+        "image": "",
+        "alt": "",
+        "imagePosition": ""
+      },
+      {
+        "id": "08",
+        "title": "Manicure & Unhas",
+        "description": "Manicure, verniz de longa duração e verniz gel, aplicação e manutenção de gel, acrílico e fibra.",
+        "featured": false,
+        "image": "",
+        "alt": "",
+        "imagePosition": ""
+      },
+      {
+        "id": "09",
+        "title": "Pedicure & Calista",
+        "description": "Pedicure, pedicure com verniz de gel e serviço de calista para pés cuidados e confortáveis.",
+        "featured": false,
+        "image": "",
+        "alt": "",
+        "imagePosition": ""
+      },
+      {
+        "id": "10",
+        "title": "Estética",
+        "description": "Maquilhagem, depilação a cera e depilação a laser.",
         "featured": false,
         "image": "",
         "alt": "",
