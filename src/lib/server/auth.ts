@@ -41,3 +41,9 @@ export class LoginLimiter {
 }
 
 export const loginLimiter = new LoginLimiter();
+
+// O Astro usa a 1.ª entrada de X-Forwarded-For, que o cliente controla; o proxy acrescenta o IP real no fim.
+export function clientIp(forwardedFor: string | null, socketAddress: string): string {
+  const ultimo = forwardedFor?.split(',').pop()?.trim();
+  return ultimo || socketAddress;
+}

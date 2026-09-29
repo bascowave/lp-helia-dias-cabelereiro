@@ -1,11 +1,11 @@
 ---
 import AdminLayout from '../../components/admin/AdminLayout.astro';
-import { checkCredentials, loginLimiter } from '../../lib/server/auth.ts';
+import { checkCredentials, clientIp, loginLimiter } from '../../lib/server/auth.ts';
 import { createSessionToken, SESSION_COOKIE, SESSION_MAX_AGE_S } from '../../lib/server/session.ts';
 
 let erro = '';
 if (Astro.request.method === 'POST') {
-  const ip = Astro.clientAddress;
+  const ip = clientIp(Astro.request.headers.get('x-forwarded-for'), Astro.clientAddress);
   const now = Date.now();
   const secret = process.env.SESSION_SECRET ?? '';
   if (secret.length < 32) {

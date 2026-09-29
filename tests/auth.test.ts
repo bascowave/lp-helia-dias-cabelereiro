@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import bcrypt from 'bcryptjs';
-import { checkCredentials, LoginLimiter } from '../src/lib/server/auth.ts';
+import { checkCredentials, LoginLimiter, clientIp } from '../src/lib/server/auth.ts';
 
 const env = { ADMIN_USER: 'admin', ADMIN_PASSWORD_HASH: bcrypt.hashSync('segredo', 4) };
 
@@ -47,5 +47,16 @@ describe('LoginLimiter', () => {
     expect(l.isBlocked('1.1.1.1', 16 * 60_000)).toBe(false);
     for (let i = 0; i < 4; i++) l.fail('1.1.1.1', 16 * 60_000);
     expect(l.isBlocked('1.1.1.1', 16 * 60_000)).toBe(false);
+  });
+});
+
+describe('clientIp', () => {
+  it('usa a última entrada de X-Forwarded-For (a que o proxy acrescentou), não a falsificável', () => {
+    expect(clientIp('6.6.6.6, 9.9.9.9', '10.0.0.1')).toBe('9.9.9.9');
+    expect(clientIp('9.9.9.9', '10.0.0.1')).toBe('9.9.9.9');
+  });
+  it('sem cabeçalho (ou vazio) usa o endereço do socket', () => {
+    expect(clientIp(null, '10.0.0.1')).toBe('10.0.0.1');
+    expect(clientIp(' , ', '10.0.0.1')).toBe('10.0.0.1');
   });
 });
