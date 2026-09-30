@@ -1,22 +1,44 @@
 ---
+import heroSalao from '../assets/images/hero-salao.jpg';
 import { content, type Geral, type Hero } from '../lib/server/content.ts';
+import { imageSizes } from '../lib/imageSizes';
 import Button from './Button.astro';
 import Img from './Img.astro';
-import { imageSizes } from '../lib/imageSizes';
+
 const g = await content.get<Geral>('geral');
 const h = await content.get<Hero>('hero');
+
+const { sql } = await import('../lib/server/db.ts');
+const [seedRow] = await sql<{ arquivo: string }[]>`select arquivo from imagens where alt = 'hero-salao.jpg' limit 1`;
+/** Imagem trocada no painel (outro UUID que o do seed). */
+const useUploadHero = Boolean(seedRow?.arquivo && h.imagem !== seedRow.arquivo);
+
+const heroImgClass = 'hero-bg absolute inset-0 h-full w-full';
 ---
 
-<section class="hero relative flex min-h-[92vh] items-end overflow-hidden md:min-h-[88vh]">
-  <div class="absolute inset-0">
-    <Img
-      arquivo={h.imagem}
-      alt={h.imagemAlt}
-      class="hero-bg h-full w-full object-cover object-center"
-      loading="eager"
-      fetchpriority="high"
-      sizes={imageSizes.hero}
-    />
+<section class="hero relative flex min-h-[70vh] items-end overflow-hidden md:min-h-[68vh]">
+  <div class="absolute inset-0 bg-ink">
+    {useUploadHero ? (
+      <Img
+        arquivo={h.imagem}
+        alt={h.imagemAlt}
+        class={heroImgClass}
+        loading="eager"
+        fetchpriority="high"
+        sizes={imageSizes.hero}
+      />
+    ) : (
+      <img
+        src={heroSalao.src}
+        width={heroSalao.width}
+        height={heroSalao.height}
+        alt={h.imagemAlt}
+        class={heroImgClass}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+    )}
     <div
       class="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/20 md:bg-gradient-to-r md:from-ink/85 md:via-ink/45 md:to-transparent"
     >
@@ -51,8 +73,21 @@ const h = await content.get<Hero>('hero');
 
 <style>
   .hero-bg {
-    image-rendering: auto;
-    transform: translateZ(0);
+    object-fit: cover;
+    object-position: center 30%;
+  }
+
+  @media (min-width: 768px) {
+    .hero-bg {
+      object-position: center 22%;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .hero-bg {
+      object-fit: contain;
+      object-position: center bottom;
+    }
   }
 
   .hero-kicker {
