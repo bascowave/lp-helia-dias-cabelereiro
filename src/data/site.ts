@@ -38,10 +38,30 @@ export const site = {
 
 export const nav = [
   { label: 'Serviços', href: '/#servicos' },
+  { label: 'Espaços', href: '/#espacos' },
   { label: 'Sobre Nós', href: '/#sobre' },
   { label: 'Galeria', href: '/#galeria' },
   { label: 'Contactos', href: '/#contactos' },
 ] as const;
+
+export const brands = {
+  label: 'Marcas profissionais',
+  title: 'Produtos de referência que usamos no salão',
+  description:
+    'Trabalhamos com linhas profissionais reconhecidas internacionalmente para garantir resultados de qualidade em corte, coloração e tratamentos capilares.',
+  items: [
+    {
+      name: 'Kérastase Paris',
+      image: 'kerastase' as const,
+      alt: 'Logótipo Kérastase Paris',
+    },
+    {
+      name: 'Wella Professionals',
+      image: 'wella' as const,
+      alt: 'Logótipo Wella Professionals',
+    },
+  ],
+} as const;
 
 export const trustPoints = [
   {
@@ -62,57 +82,85 @@ export const trustPoints = [
   },
 ] as const;
 
-export const services = [
+export const serviceCategories = [
   {
-    id: '01',
-    title: 'Corte & Styling',
-    description:
-      'Cortes femininos e masculinos, brushing e styling adaptados ao seu rosto, estilo e rotina.',
-    featured: true,
-    image: 'helia3' as const,
-    alt: 'Corte acabado com movimento e brilho',
-    imagePosition: 'center 35%',
+    id: 'cabeleireiro',
+    title: 'Cabeleireiro & Barbearia',
+    items: [
+      'Serviços gerais',
+      'Alisamento brasileiro',
+      'Tratamentos capilares',
+      'Extensões',
+    ],
   },
   {
-    id: '02',
-    title: 'Coloração & Balayage',
-    description:
-      'Cor, madeixas, balayage e técnicas de iluminação para um resultado natural, harmonioso e à sua medida.',
-    featured: false,
-    href: '#balayage',
+    id: 'beleza',
+    title: 'Beleza',
+    items: [
+      'Manicure',
+      'Verniz longa duração',
+      'Verniz gel',
+      'Aplicação de unhas',
+      'Manutenção de gel',
+      'Acrílico',
+      'Fibra',
+      'Pedicure',
+      'Pedicure com verniz de gel',
+      'Calista',
+    ],
   },
   {
-    id: '03',
-    title: 'Tratamentos Capilares',
-    description:
-      'Cuidados específicos para recuperar hidratação, brilho, força e suavidade do cabelo.',
-    featured: false,
-  },
-  {
-    id: '04',
-    title: 'Alisamento & Transformação',
-    description:
-      'Soluções profissionais para controlar o volume, alinhar o cabelo e facilitar o seu dia a dia.',
-    featured: false,
-  },
-  {
-    id: '05',
-    title: 'Penteados & Cerimónias',
-    description:
-      'Penteados elegantes para casamentos, festas e todos os momentos que merecem um cuidado especial.',
-    featured: true,
-    image: 'helia4' as const,
-    alt: 'Penteado de cerimónia meio preso',
-    imagePosition: 'center 25%',
-  },
-  {
-    id: '06',
-    title: 'Estética & Beleza',
-    description:
-      'Um espaço onde encontra outros cuidados de beleza e bem-estar para complementar o seu momento.',
-    featured: false,
+    id: 'estetica',
+    title: 'Estética',
+    items: ['Maquilhagem', 'Depilação a cera', 'Depilação a laser'],
   },
 ] as const;
+
+export const spaces = {
+  label: 'O nosso salão',
+  title: 'Espaços para cada momento de cuidado',
+  description:
+    'No centro de Esposende, reunimos zonas distintas para que cada serviço tenha o ambiente certo — do grooming masculino à depilação, do cabeleireiro à estética.',
+  barbearia: {
+    title: 'Barbearia',
+    description:
+      'Espaço dedicado ao corte masculino, barba e acabamentos, com o conforto e o rigor de uma barbearia profissional.',
+    imagePosition: 'center 45%',
+  },
+  depilacao: {
+    title: 'Depilação',
+    description:
+      'Cabine de estética preparada para depilação e tratamentos corporais, num ambiente reservado, higiénico e acolhedor.',
+    imagePosition: 'center 40%',
+  },
+  salon: {
+    title: 'Cabeleireiro & estética',
+    description:
+      'Postos de corte e styling, lavagem e coloração, manicure e uma receção onde se sente bem desde o primeiro momento.',
+    images: [
+      {
+        key: 'cabeleireiro' as const,
+        alt: 'Postos de cabeleireiro no salão Hélia Dias',
+        imagePosition: 'center 35%',
+      },
+      {
+        key: 'produtos' as const,
+        alt: 'Vitrine de produtos profissionais no salão Hélia Dias',
+        imagePosition: 'center 45%',
+      },
+      {
+        key: 'manicure' as const,
+        alt: 'Estação de manicure e cuidados das unhas',
+        imagePosition: 'center center',
+      },
+      {
+        key: 'recepcao' as const,
+        alt: 'Receção e área de espera do salão Hélia Dias Cabeleireiros',
+        imagePosition: 'center 40%',
+      },
+    ],
+  },
+} as const;
 
 export const balayage = {
   label: 'Coloração',
@@ -120,8 +168,8 @@ export const balayage = {
   description:
     'Arraste o divisor para ver a transformação. A balayage ilumina o cabelo com um degradé natural, feito à medida do seu tom e do seu estilo.',
   caption: 'Balayage',
-  beforeAlt: 'Cabelo antes do tratamento de balayage',
-  afterAlt: 'Resultado de balayage no salão Hélia Dias Cabeleireiros',
+  beforeAlt: 'Cabelo castanho uniforme antes do balayage',
+  afterAlt: 'Cabelo com balayage e madeixas após o tratamento no salão',
 } as const;
 
 /** Imagens da galeria */
@@ -131,8 +179,9 @@ export const galleryItems = [
     alt: 'Trabalho de cabeleireiro Hélia Dias Cabeleireiros',
   },
   {
-    image: 'imagem2' as const,
-    alt: 'Coloração e styling no salão Hélia Dias',
+    image: 'galeriaPenteado' as const,
+    alt: 'Penteado de cerimónia com adorno no salão Hélia Dias',
+    objectPosition: 'center 30%',
   },
   {
     image: 'imagem3' as const,
@@ -147,9 +196,9 @@ export const galleryItems = [
     alt: 'Transformação capilar Hélia Dias Cabeleireiros',
   },
   {
-    image: 'helia2' as const,
-    alt: 'Ambiente e trabalho no salão Hélia Dias',
-    objectPosition: 'center center',
+    image: 'galeriaPenteadoPerolas' as const,
+    alt: 'Penteado meio preso com perolas e madeixas no salão Hélia Dias',
+    objectPosition: 'center 35%',
   },
 ] as const;
 

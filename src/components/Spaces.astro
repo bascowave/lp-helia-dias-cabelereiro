@@ -1,0 +1,88 @@
+---
+import { Image } from 'astro:assets';
+import { spaces } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+import { imageSizes, imageWidths } from '../lib/imageSizes';
+import barbeariaImg from '../assets/images/espaco-barbearia.jpg';
+import depilacaoImg from '../assets/images/espaco-depilacao.jpg';
+import cabeleireiroImg from '../assets/images/espaco-cabeleireiro.jpg';
+import produtosImg from '../assets/images/espaco-produtos.jpg';
+import manicureImg from '../assets/images/espaco-manicure.jpg';
+import recepcaoImg from '../assets/images/espaco-recepcao.jpg';
+
+const salonImages = {
+  cabeleireiro: cabeleireiroImg,
+  produtos: produtosImg,
+  manicure: manicureImg,
+  recepcao: recepcaoImg,
+} as const;
+
+const dedicatedAreas = [
+  {
+    ...spaces.barbearia,
+    image: barbeariaImg,
+  },
+  {
+    ...spaces.depilacao,
+    image: depilacaoImg,
+  },
+];
+---
+
+<section id="espacos" class="section-padding scroll-mt-24 bg-white/40">
+  <div class="container-wide">
+    <SectionHeading
+      label={spaces.label}
+      title={spaces.title}
+      description={spaces.description}
+    />
+
+    <div class="mt-14 grid gap-5 lg:grid-cols-2 lg:gap-6">
+      {
+        dedicatedAreas.map((area) => (
+          <article class="group relative min-h-[22rem] overflow-hidden rounded-sm lg:min-h-[26rem]">
+            <Image
+              src={area.image}
+              alt={area.title}
+              widths={[...imageWidths.spaceFeatured]}
+              sizes={imageSizes.spaceFeatured}
+              class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+              style={`object-position: ${area.imagePosition}`}
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/35 to-ink/10" />
+            <div class="relative flex h-full flex-col justify-end p-6 md:p-8">
+              <h3 class="font-serif text-3xl tracking-tight text-ivory md:text-4xl">{area.title}</h3>
+              <p class="mt-3 max-w-md text-sm leading-relaxed text-ivory/85 md:text-base">
+                {area.description}
+              </p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="mt-16 border-t border-ink/10 pt-14">
+      <div class="max-w-2xl">
+        <p class="kicker mb-4">{spaces.salon.title}</p>
+        <p class="text-base leading-relaxed text-ink-muted md:text-lg">{spaces.salon.description}</p>
+      </div>
+
+      <div class="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
+        {
+          spaces.salon.images.map((item) => (
+            <figure class="group relative aspect-[4/5] overflow-hidden rounded-sm bg-ink/5">
+              <Image
+                src={salonImages[item.key]}
+                alt={item.alt}
+                widths={[...imageWidths.spaceGrid]}
+                sizes={imageSizes.spaceGrid}
+                class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                style={item.imagePosition ? `object-position: ${item.imagePosition}` : undefined}
+              />
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

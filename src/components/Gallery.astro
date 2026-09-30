@@ -2,15 +2,23 @@
 import { Image } from 'astro:assets';
 import { galleryItems, site } from '../data/site';
 import imagem1 from '../assets/images/imagem1.png';
-import imagem2 from '../assets/images/imagem2.png';
+import galeriaPenteado from '../assets/images/galeria-penteado.jpg';
 import imagem3 from '../assets/images/imagem3.png';
 import imagem4 from '../assets/images/imagem4.png';
 import imagem5 from '../assets/images/imagem5.png';
-import helia2 from '../assets/images/helia2.jpg';
+import galeriaPenteadoPerolas from '../assets/images/galeria-penteado-perolas.jpg';
 import SectionHeading from './SectionHeading.astro';
 import Button from './Button.astro';
+import { imageSizes, imageWidths } from '../lib/imageSizes';
 
-const images = { imagem1, imagem2, imagem3, imagem4, imagem5, helia2 } as const;
+const images = {
+  imagem1,
+  galeriaPenteado,
+  imagem3,
+  imagem4,
+  imagem5,
+  galeriaPenteadoPerolas,
+} as const;
 ---
 
 <section id="galeria" class="section-padding">
@@ -28,8 +36,8 @@ const images = { imagem1, imagem2, imagem3, imagem4, imagem5, helia2 } as const;
             <Image
               src={images[item.image]}
               alt={item.alt}
-              widths={[320, 480, 640]}
-              sizes="(max-width: 768px) 45vw, 220px"
+              widths={[...imageWidths.gallery]}
+              sizes={imageSizes.gallery}
               class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
               style={item.objectPosition ? `object-position: ${item.objectPosition}` : undefined}
             />

@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import { imageSizes, imageWidths } from '../lib/imageSizes';
 
 interface Props {
   before: ImageMetadata;
@@ -19,16 +20,16 @@ const { before, after, beforeAlt, afterAlt, caption = 'Balayage' } = Astro.props
       <Image
         src={after}
         alt={afterAlt}
-        widths={[640, 960, 1280]}
-        sizes="(max-width: 1024px) 92vw, 560px"
+        widths={[...imageWidths.beforeAfter]}
+        sizes={imageSizes.beforeAfter}
         class="ba-img ba-img-after"
         draggable="false"
       />
       <Image
         src={before}
         alt={beforeAlt}
-        widths={[640, 960, 1280]}
-        sizes="(max-width: 1024px) 92vw, 560px"
+        widths={[...imageWidths.beforeAfter]}
+        sizes={imageSizes.beforeAfter}
         class="ba-img ba-img-before"
         draggable="false"
       />
@@ -113,7 +114,7 @@ const { before, after, beforeAlt, afterAlt, caption = 'Balayage' } = Astro.props
     width: 100%;
     max-width: none;
     object-fit: cover;
-    object-position: center 22%;
+    object-position: center 38%;
     pointer-events: none;
     user-select: none;
     -webkit-user-drag: none;

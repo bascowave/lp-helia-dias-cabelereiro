@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
+import { getImage } from 'astro:assets';
 import { site } from '../data/site';
+import heroImage from '../assets/images/hero-salao.jpg';
 
 interface Props {
   title?: string;
@@ -13,7 +15,15 @@ const {
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, site.url).href;
-const ogImage = new URL('/hero/salao.jpg', site.url).href;
+const ogImageOptimized = await getImage({
+  src: heroImage,
+  width: 1200,
+  height: 630,
+  fit: 'cover',
+  format: 'jpg',
+  quality: 92,
+});
+const ogImage = new URL(ogImageOptimized.src, site.url).href;
 
 const jsonLd = {
   '@context': 'https://schema.org',

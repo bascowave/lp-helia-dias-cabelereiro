@@ -14,6 +14,6 @@ export default defineConfig({
   integrations: [sitemap()],
 
   image: {
-    quality: 92,
+    quality: 98,
   },
 });

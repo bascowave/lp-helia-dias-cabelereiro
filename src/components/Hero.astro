@@ -1,15 +1,18 @@
 ---
+import { Image } from 'astro:assets';
 import { site } from '../data/site';
 import Button from './Button.astro';
+import heroImage from '../assets/images/hero-salao.jpg';
+import { imageSizes, imageWidths } from '../lib/imageSizes';
 ---
 
 <section class="hero relative flex min-h-[92vh] items-end overflow-hidden md:min-h-[88vh]">
   <div class="absolute inset-0">
-    <img
-      src="/hero/salao.jpg"
+    <Image
+      src={heroImage}
       alt="Interior do salão Hélia Dias Cabeleireiros em Esposende"
-      width="1920"
-      height="1280"
+      widths={[...imageWidths.hero]}
+      sizes={imageSizes.hero}
       class="hero-bg h-full w-full object-cover object-center"
       loading="eager"
       fetchpriority="high"
