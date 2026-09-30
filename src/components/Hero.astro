@@ -2,6 +2,7 @@
 import { content, type Geral, type Hero } from '../lib/server/content.ts';
 import Button from './Button.astro';
 import Img from './Img.astro';
+import { imageSizes } from '../lib/imageSizes';
 const g = await content.get<Geral>('geral');
 const h = await content.get<Hero>('hero');
 ---
@@ -14,6 +15,7 @@ const h = await content.get<Hero>('hero');
       class="hero-bg h-full w-full object-cover object-center"
       loading="eager"
       fetchpriority="high"
+      sizes={imageSizes.hero}
     />
     <div
       class="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/20 md:bg-gradient-to-r md:from-ink/85 md:via-ink/45 md:to-transparent"

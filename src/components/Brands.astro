@@ -1,0 +1,50 @@
+---
+import { content, type Marcas } from '../lib/server/content.ts';
+import Img from './Img.astro';
+import SectionHeading from './SectionHeading.astro';
+import { imageSizes } from '../lib/imageSizes';
+
+const m = await content.get<Marcas>('marcas');
+
+const isKerastase = (name: string) => name.toLowerCase().includes('kérastase') || name.toLowerCase().includes('kerastase');
+---
+
+<section id="marcas" class="section-padding scroll-mt-24 bg-ivory-dark">
+  <div class="container-wide">
+    <SectionHeading
+      label={m.label}
+      title={m.title}
+      description={m.description}
+      align="center"
+      class="max-w-2xl"
+    />
+
+    <ul
+      class="mx-auto mt-14 grid max-w-4xl gap-10 sm:grid-cols-2 sm:gap-16"
+      aria-label="Marcas profissionais utilizadas no salão"
+    >
+      {
+        m.itens.map((brand) => (
+          <li class="flex flex-col items-center text-center">
+            <div
+              class="flex w-full min-h-[6rem] items-center justify-center px-4 sm:min-h-[7rem]"
+            >
+              <Img
+                arquivo={brand.imagem}
+                alt={brand.alt}
+                sizes={imageSizes.brandLogo}
+                class:list={[
+                  'w-auto max-w-full object-contain',
+                  isKerastase(brand.name)
+                    ? 'h-[3.25rem] sm:h-[3.75rem] md:h-20'
+                    : 'h-16 sm:h-[4.5rem]',
+                ]}
+              />
+            </div>
+            <p class="sr-only">{brand.name}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

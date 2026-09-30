@@ -18,10 +18,15 @@
     "googleReviews": "https://share.google/XS2T3caRT50eCiXbB",
     "googleMaps": "https://www.google.com/maps/place/H%C3%A9lia+Dias+Cabeleireiros/@41.533734,-8.7795553,17z/data=!3m1!4b1!4m6!3m5!1s0xd244b11246c9d85:0x3168ba034568550f!8m2!3d41.533734!4d-8.7795553!16s%2Fg%2F11h79vfh7l",
     "mapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2979.5!2d-8.7795553!3d41.533734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd244b11246c9d85%3A0x3168ba034568550f!2sH%C3%A9lia%20Dias%20Cabeleireiros!5e0!3m2!1spt-PT!2spt!4v1725129600000!5m2!1spt-PT!2spt",
+    "livroReclamacoes": "https://www.livroreclamacoes.pt/inicio",
     "nav": [
       {
         "label": "Serviços",
         "href": "/#servicos"
+      },
+      {
+        "label": "Espaços",
+        "href": "/#espacos"
       },
       {
         "label": "Sobre Nós",
@@ -38,7 +43,7 @@
     ]
   },
   "hero": {
-    "imagem": "@salao.jpg",
+    "imagem": "@hero-salao.jpg",
     "imagemAlt": "Interior do salão Hélia Dias Cabeleireiros em Esposende",
     "titulo": "O seu cabelo.",
     "destaque": "A sua melhor versão.",
@@ -70,98 +75,87 @@
     "label": "Os nossos serviços",
     "title": "Cuidados pensados para si",
     "description": "Do corte à cor, dos tratamentos aos momentos mais especiais, trabalhamos cada serviço de forma personalizada para valorizar a sua beleza e respeitar a identidade do seu cabelo.",
-    "itens": [
+    "categorias": [
       {
-        "id": "01",
-        "title": "Corte & Styling",
-        "description": "Cortes femininos e masculinos, brushing e styling adaptados ao seu rosto, estilo e rotina.",
-        "featured": true,
-        "image": "@helia3.jpg",
-        "alt": "Corte acabado com movimento e brilho",
-        "imagePosition": "center 35%"
+        "id": "cabeleireiro",
+        "title": "Cabeleireiro & Barbearia",
+        "itens": [
+          {
+            "nome": "Serviços gerais"
+          },
+          {
+            "nome": "Alisamento brasileiro"
+          },
+          {
+            "nome": "Tratamentos capilares"
+          },
+          {
+            "nome": "Extensões"
+          }
+        ]
       },
       {
-        "id": "02",
-        "title": "Coloração & Balayage",
-        "description": "Cor, madeixas, balayage e técnicas de iluminação para um resultado natural, harmonioso e à sua medida.",
-        "featured": false,
-        "image": "",
-        "alt": "",
-        "imagePosition": ""
+        "id": "beleza",
+        "title": "Beleza",
+        "itens": [
+          {
+            "nome": "Manicure"
+          },
+          {
+            "nome": "Verniz longa duração"
+          },
+          {
+            "nome": "Verniz gel"
+          },
+          {
+            "nome": "Aplicação de unhas"
+          },
+          {
+            "nome": "Manutenção de gel"
+          },
+          {
+            "nome": "Acrílico"
+          },
+          {
+            "nome": "Fibra"
+          },
+          {
+            "nome": "Pedicure"
+          },
+          {
+            "nome": "Pedicure com verniz de gel"
+          },
+          {
+            "nome": "Calista"
+          }
+        ]
       },
       {
-        "id": "03",
-        "title": "Tratamentos Capilares",
-        "description": "Cuidados específicos para recuperar hidratação, brilho, força e suavidade do cabelo.",
-        "featured": false,
-        "image": "",
-        "alt": "",
-        "imagePosition": ""
-      },
-      {
-        "id": "04",
-        "title": "Alisamento & Transformação",
-        "description": "Alisamento brasileiro e outras soluções profissionais para controlar o volume, alinhar o cabelo e facilitar o seu dia a dia.",
-        "featured": false,
-        "image": "",
-        "alt": "",
-        "imagePosition": ""
-      },
-      {
-        "id": "05",
-        "title": "Penteados & Cerimónias",
-        "description": "Penteados elegantes para casamentos, festas e todos os momentos que merecem um cuidado especial.",
-        "featured": true,
-        "image": "@helia4.jpg",
-        "alt": "Penteado de cerimónia meio preso",
-        "imagePosition": "center 25%"
-      },
-      {
-        "id": "06",
-        "title": "Extensões",
-        "description": "Extensões para ganhar comprimento e volume, aplicadas com cuidado para um resultado natural.",
-        "featured": false,
-        "image": "",
-        "alt": "",
-        "imagePosition": ""
-      },
-      {
-        "id": "07",
-        "title": "Barbearia",
-        "description": "Cortes e acabamentos masculinos com precisão e atenção ao detalhe.",
-        "featured": false,
-        "image": "",
-        "alt": "",
-        "imagePosition": ""
-      },
-      {
-        "id": "08",
-        "title": "Manicure & Unhas",
-        "description": "Manicure, verniz de longa duração e verniz gel, aplicação e manutenção de gel, acrílico e fibra.",
-        "featured": false,
-        "image": "",
-        "alt": "",
-        "imagePosition": ""
-      },
-      {
-        "id": "09",
-        "title": "Pedicure & Calista",
-        "description": "Pedicure, pedicure com verniz de gel e serviço de calista para pés cuidados e confortáveis.",
-        "featured": false,
-        "image": "",
-        "alt": "",
-        "imagePosition": ""
-      },
-      {
-        "id": "10",
+        "id": "estetica",
         "title": "Estética",
-        "description": "Maquilhagem, depilação a cera e depilação a laser.",
-        "featured": false,
-        "image": "",
-        "alt": "",
-        "imagePosition": ""
+        "itens": [
+          {
+            "nome": "Maquilhagem"
+          },
+          {
+            "nome": "Depilação a cera"
+          },
+          {
+            "nome": "Depilação a laser"
+          }
+        ]
       }
     ]
+  },
+  "balayage": {
+    "label": "Coloração",
+    "title": "Balayage, antes e depois",
+    "description": "Arraste o divisor para ver a transformação. A balayage ilumina o cabelo com um degradé natural, feito à medida do seu tom e do seu estilo.",
+    "caption": "Balayage",
+    "beforeImagem": "@balayage-antes.jpg",
+    "beforeAlt": "Cabelo castanho uniforme antes do balayage",
+    "afterImagem": "@balayage-depois.jpg",
+    "afterAlt": "Cabelo com balayage e madeixas após o tratamento no salão"
   },
   "sobre": {
     "label": "Sobre nós",
@@ -179,6 +173,43 @@
       }
     ]
   },
+  "espacos": {
+    "label": "O nosso salão",
+    "title": "Espaços para cada momento de cuidado",
+    "description": "No centro de Esposende, reunimos zonas distintas para que cada serviço tenha o ambiente certo — do grooming masculino à depilação, do cabeleireiro à estética.",
+    "barbeariaTitle": "Barbearia",
+    "barbeariaDescription": "Espaço dedicado ao corte masculino, barba e acabamentos, com o conforto e o rigor de uma barbearia profissional.",
+    "barbeariaImagem": "@espaco-barbearia.jpg",
+    "barbeariaImagePosition": "center 45%",
+    "depilacaoTitle": "Depilação",
+    "depilacaoDescription": "Cabine de estética preparada para depilação e tratamentos corporais, num ambiente reservado, higiénico e acolhedor.",
+    "depilacaoImagem": "@espaco-depilacao.jpg",
+    "depilacaoImagePosition": "center 40%",
+    "salonTitle": "Cabeleireiro & estética",
+    "salonDescription": "Postos de corte e styling, lavagem e coloração, manicure e uma receção onde se sente bem desde o primeiro momento.",
+    "salonImages": [
+      {
+        "imagem": "@espaco-cabeleireiro.jpg",
+        "alt": "Postos de cabeleireiro no salão Hélia Dias",
+        "imagePosition": "center 35%"
+      },
+      {
+        "imagem": "@espaco-produtos.jpg",
+        "alt": "Vitrine de produtos profissionais no salão Hélia Dias",
+        "imagePosition": "center 45%"
+      },
+      {
+        "imagem": "@espaco-manicure.jpg",
+        "alt": "Estação de manicure e cuidados das unhas",
+        "imagePosition": "center center"
+      },
+      {
+        "imagem": "@espaco-recepcao.jpg",
+        "alt": "Receção e área de espera do salão Hélia Dias Cabeleireiros",
+        "imagePosition": "center 40%"
+      }
+    ]
+  },
   "galeria": {
     "label": "O nosso trabalho",
     "title": "Resultados que falam por si",
@@ -191,9 +222,9 @@
         "objectPosition": ""
       },
       {
-        "image": "@imagem2.png",
-        "alt": "Coloração e styling no salão Hélia Dias",
-        "objectPosition": ""
+        "image": "@galeria-penteado.jpg",
+        "alt": "Penteado de cerimónia com adorno no salão Hélia Dias",
+        "objectPosition": "center 30%"
       },
       {
         "image": "@imagem3.png",
@@ -211,9 +242,26 @@
         "objectPosition": ""
       },
       {
-        "image": "@helia2.jpg",
-        "alt": "Ambiente e trabalho no salão Hélia Dias",
-        "objectPosition": "center center"
+        "image": "@galeria-penteado-perolas.jpg",
+        "alt": "Penteado meio preso com perolas e madeixas no salão Hélia Dias",
+        "objectPosition": "center 35%"
+      }
+    ]
+  },
+  "marcas": {
+    "label": "Marcas profissionais",
+    "title": "Produtos de referência que usamos no salão",
+    "description": "Trabalhamos com linhas profissionais reconhecidas internacionalmente para garantir resultados de qualidade em corte, coloração e tratamentos capilares.",
+    "itens": [
+      {
+        "name": "Kérastase Paris",
+        "imagem": "@marca-kerastase.png",
+        "alt": "Logótipo Kérastase Paris"
+      },
+      {
+        "name": "Wella Professionals",
+        "imagem": "@marca-wella-professionals.png",
+        "alt": "Logótipo Wella Professionals"
       }
     ]
   },
@@ -280,11 +328,11 @@
   "privacidade": {
     "titulo": "Política de Privacidade",
     "atualizacao": "31 de agosto de 2026",
-    "html": "<p>\n  A presente Política de Privacidade descreve como a <strong>Hélia Dias Cabeleireiros</strong> trata os dados\n  pessoais recolhidos através do website <a href=\"https://heliadiascabeleireiros.pt\">heliadiascabeleireiros.pt</a>\n  e dos canais de contacto associados.\n</p>\n\n<h2>1. Responsável pelo tratamento</h2>\n<p>\n  O responsável pelo tratamento dos dados pessoais é a Hélia Dias Cabeleireiros, com sede em Rua Engenheiro Losa Faria, Loja 5, 4740-268 Esposende, Portugal.\n</p>\n<p>\n  Para questões relacionadas com privacidade, pode contactar-nos através do email <a\n    href=\"mailto:heliadias_cab@hotmail.com\">heliadias_cab@hotmail.com</a\n  > ou do telefone <a href=\"tel:+351965833809\">+351 965 833 809</a>.\n</p>\n\n<h2>2. Dados que recolhemos</h2>\n<p>Podemos recolher e tratar os seguintes dados, consoante a forma como nos contacta:</p>\n<ul>\n  <li>Nome e número de telefone, quando nos contacta por WhatsApp ou telefone;</li>\n  <li>Endereço de email e conteúdo da mensagem, quando nos envia email;</li>\n  <li>\n    Dados técnicos de navegação, como endereço IP, tipo de browser, páginas visitadas e data/hora\n    de acesso, recolhidos automaticamente através de cookies ou tecnologias similares.\n  </li>\n</ul>\n\n<h2>3. Finalidades do tratamento</h2>\n<p>Os dados pessoais são tratados para as seguintes finalidades:</p>\n<ul>\n  <li>Responder a pedidos de informação e marcação de atendimentos;</li>\n  <li>Prestar os serviços de cabeleireiro e estética solicitados;</li>\n  <li>Garantir o funcionamento, segurança e melhoria do website;</li>\n  <li>Cumprir obrigações legais aplicáveis.</li>\n</ul>\n\n<h2>4. Base legal</h2>\n<p>O tratamento dos dados assenta, consoante o caso, em:</p>\n<ul>\n  <li>Execução de medidas pré-contratuais ou contrato;</li>\n  <li>Consentimento do titular dos dados;</li>\n  <li>Interesse legítimo na gestão do negócio e comunicação com clientes;</li>\n  <li>Cumprimento de obrigações legais.</li>\n</ul>\n\n<h2>5. Conservação dos dados</h2>\n<p>\n  Os dados são conservados apenas pelo período necessário para cumprir as finalidades para as\n  quais foram recolhidos, incluindo prazos legais de conservação aplicáveis.\n</p>\n\n<h2>6. Partilha de dados</h2>\n<p>\n  Não vendemos dados pessoais. Podemos partilhar informação apenas com prestadores de serviços\n  essenciais ao funcionamento do website ou da comunicação (por exemplo, alojamento web ou\n  plataformas de mensagens), sempre dentro dos limites necessários e com medidas adequadas de\n  proteção.\n</p>\n\n<h2>7. Direitos dos titulares</h2>\n<p>Nos termos do Regulamento Geral sobre a Proteção de Dados (RGPD), pode exercer os direitos de:</p>\n<ul>\n  <li>Acesso, retificação e apagamento dos dados;</li>\n  <li>Limitação ou oposição ao tratamento;</li>\n  <li>Portabilidade dos dados, quando aplicável;</li>\n  <li>Retirar o consentimento, sem comprometer a licitude do tratamento anterior.</li>\n</ul>\n<p>\n  Para exercer estes direitos, contacte-nos através de <a href=\"mailto:heliadias_cab@hotmail.com\"\n    >heliadias_cab@hotmail.com</a\n  >. Tem também o direito de apresentar reclamação à Comissão Nacional de Proteção de Dados (CNPD).\n</p>\n\n<h2>8. Cookies</h2>\n<p>\n  Este website pode utilizar cookies estritamente necessários ao seu funcionamento e, quando\n  aplicável, cookies analíticos para compreender a utilização do site. Pode configurar o seu\n  browser para recusar cookies, embora algumas funcionalidades possam ficar limitadas.\n</p>\n\n<h2>9. Alterações</h2>\n<p>\n  Esta política pode ser atualizada periodicamente. Recomendamos a consulta regular desta página\n  para se manter informado sobre a forma como protegemos os seus dados.\n</p>\n\n<p class=\"mt-10\">\n  <a href=\"/\">← Voltar ao início</a>\n</p>"
+    "html": "<Fragment set:html={p.html} />"
   },
   "termos": {
     "titulo": "Termos de Utilização",
     "atualizacao": "31 de agosto de 2026",
-    "html": "<p>\n  Ao aceder e utilizar o website <a href=\"https://heliadiascabeleireiros.pt\">heliadiascabeleireiros.pt</a>,\n  concorda com os presentes Termos de Utilização. Se não concordar, pedimos que não utilize este\n  site.\n</p>\n\n<h2>1. Objeto</h2>\n<p>\n  Este website tem carácter informativo e destina-se a apresentar os serviços da Hélia Dias Cabeleireiros,\n  salão de cabeleireiro e estética localizado em Esposende, Portugal, bem como facilitar o\n  contacto para marcação de atendimentos.\n</p>\n\n<h2>2. Utilização do website</h2>\n<p>O utilizador compromete-se a utilizar o website de forma lícita e adequada, abstendo-se de:</p>\n<ul>\n  <li>Utilizar o site para fins ilícitos ou que violem direitos de terceiros;</li>\n  <li>Tentar aceder a áreas restritas ou interferir com o normal funcionamento do site;</li>\n  <li>Reproduzir, copiar ou distribuir conteúdos sem autorização prévia.</li>\n</ul>\n\n<h2>3. Marcações e serviços</h2>\n<p>\n  As marcações efetuadas por WhatsApp, telefone ou email estão sujeitas à disponibilidade do\n  salão. A prestação dos serviços de cabeleireiro e estética rege-se pelas condições acordadas\n  diretamente com o cliente no momento do atendimento.\n</p>\n<p>\n  As informações publicadas no website (serviços, descrições, imagens) têm carácter indicativo e\n  podem ser atualizadas sem aviso prévio.\n</p>\n\n<h2>4. Propriedade intelectual</h2>\n<p>\n  Todos os conteúdos deste website — incluindo textos, imagens, logótipo e design — são\n  propriedade da Hélia Dias Cabeleireiros ou utilizados com autorização. É proibida a sua reprodução total ou\n  parcial sem consentimento escrito.\n</p>\n\n<h2>5. Ligações externas</h2>\n<p>\n  O website pode conter ligações para sites de terceiros (por exemplo, Instagram, Facebook ou\n  Google Maps). Não nos responsabilizamos pelo conteúdo ou práticas de privacidade desses sites\n  externos.\n</p>\n\n<h2>6. Limitação de responsabilidade</h2>\n<p>\n  Empregamos esforços razoáveis para manter o website atualizado e funcional, mas não garantimos\n  ausência total de erros, interrupções ou imprecisões pontuais. A utilização do site é feita por\n  conta e risco do utilizador.\n</p>\n\n<h2>7. Proteção de dados</h2>\n<p>\n  O tratamento de dados pessoais está descrito na nossa <a href=\"/politica-de-privacidade\"\n    >Política de Privacidade</a\n  >.\n</p>\n\n<h2>8. Alterações aos termos</h2>\n<p>\n  Reservamo-nos o direito de alterar estes Termos de Utilização a qualquer momento. A data da\n  última atualização será indicada no topo desta página.\n</p>\n\n<h2>9. Lei aplicável</h2>\n<p>\n  Estes termos regem-se pela lei portuguesa. Para questões relacionadas com a utilização deste\n  website, contacte-nos através de <a href=\"mailto:heliadias_cab@hotmail.com\">heliadias_cab@hotmail.com</a> ou <a\n    href=\"tel:+351965833809\">+351 965 833 809</a>.\n</p>\n\n<p class=\"mt-10\">\n  <a href=\"/\">← Voltar ao início</a>\n</p>"
+    "html": "<Fragment set:html={p.html} />"
   }
 }

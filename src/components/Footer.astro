@@ -4,7 +4,6 @@ import Img from './Img.astro';
 
 const g = await content.get<Geral>('geral');
 const rf = await content.get<Rodape>('rodape');
-const LIVRO_RECLAMACOES = 'https://www.livroreclamacoes.pt/inicio';
 const LOCATION = 'Esposende, Portugal';
 
 const currentYear = new Date().getFullYear();
@@ -144,7 +143,7 @@ const currentYear = new Date().getFullYear();
           </ul>
 
           <a
-            href={LIVRO_RECLAMACOES}
+            href={g.livroReclamacoes}
             target="_blank"
             rel="noopener noreferrer"
             class="mt-8 inline-block opacity-85 transition-opacity hover:opacity-100"

@@ -2,19 +2,45 @@
 interface Props {
   beforeSrc: string;
   afterSrc: string;
+  beforeSrcset?: string;
+  afterSrcset?: string;
+  sizes?: string;
   beforeAlt: string;
   afterAlt: string;
   caption?: string;
 }
 
-const { beforeSrc, afterSrc, beforeAlt, afterAlt, caption = 'Balayage' } = Astro.props;
+const {
+  beforeSrc,
+  afterSrc,
+  beforeSrcset,
+  afterSrcset,
+  sizes,
+  beforeAlt,
+  afterAlt,
+  caption = 'Balayage',
+} = Astro.props;
 ---
 
 <figure class="ba-widget">
   <div class="ba-stage" data-before-after>
     <div class="ba-media" data-ba-media style="--split: 52%">
-      <img src={afterSrc} alt={afterAlt} class="ba-img ba-img-after" draggable="false" />
-      <img src={beforeSrc} alt={beforeAlt} class="ba-img ba-img-before" draggable="false" />
+      <img
+        src={afterSrc}
+        srcset={afterSrcset}
+        sizes={sizes}
+        alt={afterAlt}
+        class="ba-img ba-img-after"
+        draggable="false"
+      />
+      <img
+        src={beforeSrc}
+        srcset={beforeSrcset}
+        sizes={sizes}
+        alt={beforeAlt}
+        class="ba-img ba-img-before"
+        draggable="false"
+      />
 
       <div class="ba-handle" aria-hidden="true">
         <span class="ba-line"></span>

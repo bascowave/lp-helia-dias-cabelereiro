@@ -73,13 +73,29 @@ export type Geral = {
   phone: string; phoneHref: string; whatsappHref: string; email: string;
   street: string; city: string; postalCode: string;
   instagram: string; facebook: string; googleReviews: string; googleMaps: string; mapsEmbed: string;
+  livroReclamacoes: string;
   nav: NavItem[];
 };
 export type Hero = { imagem: string; imagemAlt: string; titulo: string; destaque: string; texto: string; botaoPrimario: string; botaoSecundario: string };
 export type Confianca = { itens: { title: string; description: string }[] };
-export type Servico = { id: string; title: string; description: string; featured: boolean; image: string; alt: string; imagePosition: string };
-export type Servicos = { label: string; title: string; description: string; itens: Servico[] };
+export type ServicoCategoria = { id: string; title: string; itens: { nome: string }[] };
+export type Servicos = { label: string; title: string; description: string; categorias: ServicoCategoria[] };
+export type Balayage = {
+  label: string; title: string; description: string; caption: string;
+  beforeImagem: string; beforeAlt: string; afterImagem: string; afterAlt: string;
+};
 export type Sobre = { label: string; titulo: string; texto: string; assinatura: string; numeros: { valor: string; legenda: string }[] };
+export type Espacos = {
+  label: string; title: string; description: string;
+  barbeariaTitle: string; barbeariaDescription: string; barbeariaImagem: string; barbeariaImagePosition: string;
+  depilacaoTitle: string; depilacaoDescription: string; depilacaoImagem: string; depilacaoImagePosition: string;
+  salonTitle: string; salonDescription: string;
+  salonImages: { imagem: string; alt: string; imagePosition: string }[];
+};
+export type Marcas = {
+  label: string; title: string; description: string;
+  itens: { name: string; imagem: string; alt: string }[];
+};
 export type Galeria = { label: string; title: string; description: string; botao: string; itens: { image: string; alt: string; objectPosition: string }[] };
 export type Avaliacoes = { label: string; title: string; score: number; count: number; itens: { author: string; relativeTime: string; rating: number; avatar: string; text: string }[] };
 export type Contactos = { label: string; titulo: string; texto: string; botao: string };
