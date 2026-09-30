@@ -1,10 +1,17 @@
 ---
-import { content, type Geral } from '../lib/server/content.ts';
+import { content, type Balayage, type Geral } from '../lib/server/content.ts';
+import { imgSrc } from '../lib/server/images.ts';
 import SectionHeading from './SectionHeading.astro';
 import Button from './Button.astro';
 import BeforeAfter from './BeforeAfter.astro';
+import { imageSizes } from '../lib/imageSizes';
 
 const g = await content.get<Geral>('geral');
+const b = await content.get<Balayage>('balayage');
+
+const beforeSrc = imgSrc(b.beforeImagem, 1600);
+const afterSrc = imgSrc(b.afterImagem, 1600);
+const baSizes = imageSizes.beforeAfter;
 ---
 
 <section id="balayage" class="section-padding scroll-mt-24">
@@ -12,9 +19,9 @@ const g = await content.get<Geral>('geral');
     <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-16">
       <div>
         <SectionHeading
-          label="Coloração"
-          title="Balayage, antes e depois"
-          description="Arraste o divisor para ver a transformação. A balayage ilumina o cabelo com um degradé natural, feito à medida do seu tom e do seu estilo."
+          label={b.label}
+          title={b.title}
+          description={b.description}
         />
         <div class="mt-8">
           <Button href={g.whatsappHref} external>Marcar atendimento</Button>
@@ -22,11 +29,14 @@ const g = await content.get<Geral>('geral');
       </div>
 
       <BeforeAfter
-        beforeSrc="/balayage/antes.png"
-        afterSrc="/balayage/depois.png"
-        beforeAlt="Cabelo antes do tratamento de balayage"
-        afterAlt="Resultado de balayage no salão Hélia Dias Cabeleireiros"
-        caption="Balayage"
+        beforeSrc={beforeSrc}
+        afterSrc={afterSrc}
+        beforeSrcset={`${imgSrc(b.beforeImagem, 800)} 800w, ${beforeSrc} 1600w`}
+        afterSrcset={`${imgSrc(b.afterImagem, 800)} 800w, ${afterSrc} 1600w`}
+        sizes={baSizes}
+        beforeAlt={b.beforeAlt}
+        afterAlt={b.afterAlt}
+        caption={b.caption}
       />
     </div>
   </div>

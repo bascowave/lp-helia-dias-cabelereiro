@@ -1,11 +1,8 @@
 ---
 import { content, type Servicos } from '../lib/server/content.ts';
-import Img from './Img.astro';
 import SectionHeading from './SectionHeading.astro';
 
 const s = await content.get<Servicos>('servicos');
-const featured = s.itens.filter((i) => i.featured);
-const standard = s.itens.filter((i) => !i.featured);
 ---
 
 <section id="servicos" class="section-padding">
@@ -16,53 +13,26 @@ const standard = s.itens.filter((i) => !i.featured);
       description={s.description}
     />
 
-    <div class="mt-14 grid gap-5 lg:grid-cols-2 lg:gap-6">
+    <div class="mt-14 grid gap-px overflow-hidden rounded-sm border border-ink/8 bg-ink/8 lg:grid-cols-3">
       {
-        featured.map((service, index) => (
-          <article
-            class:list={[
-              'group relative overflow-hidden rounded-sm',
-              index === 0 ? 'min-h-[22rem] lg:min-h-[26rem]' : 'min-h-[20rem] lg:min-h-[26rem]',
-            ]}
-          >
-            {service.image && (
-              <Img
-                arquivo={service.image}
-                alt={service.alt || service.title}
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                style={service.imagePosition ? `object-position: ${service.imagePosition}` : undefined}
-              />
-            )}
-            <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/30 to-transparent" />
-            <div class="relative flex h-full flex-col justify-end p-6 md:p-8">
-              <p class="kicker mb-2 text-ivory/70">{service.id}</p>
-              <h3 class="font-serif text-3xl tracking-tight text-ivory md:text-4xl">{service.title}</h3>
-              <p class="mt-3 max-w-md text-sm leading-relaxed text-ivory/85 md:text-base">
-                {service.description}
-              </p>
-            </div>
-          </article>
-        ))
-      }
-    </div>
-
-    <div class="mt-6 grid gap-px overflow-hidden rounded-sm border border-ink/8 bg-ink/8 sm:grid-cols-2 lg:grid-cols-4">
-      {
-        standard.map((service) => (
+        s.categorias.map((category, index) => (
           <article class="bg-ivory p-6 md:p-7">
-            <p class="kicker mb-2">{service.id}</p>
-            <h3 class="font-serif text-xl tracking-tight text-ink">{service.title}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-ink-muted">{service.description}</p>
-            {service.title.toLowerCase().includes('balayage') && (
-              <a
-                href="#balayage"
-                class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-burgundy transition-colors hover:text-burgundy-dark"
-              >
-                Ver antes e depois
-                <span aria-hidden="true">→</span>
-              </a>
-            )}
+            <p class="kicker mb-2">{String(index + 1).padStart(2, '0')}</p>
+            <h3 class="font-serif text-xl tracking-tight text-ink md:text-2xl">{category.title}</h3>
+            <ul
+              class:list={[
+                'mt-3 text-sm leading-snug text-ink-muted',
+                category.itens.length > 5
+                  ? 'columns-1 gap-x-6 sm:columns-2'
+                  : 'space-y-1.5',
+              ]}
+            >
+              {
+                category.itens.map((item) => (
+                  <li class="break-inside-avoid py-0.5">{item.nome}</li>
+                ))
+              }
+            </ul>
           </article>
         ))
       }
