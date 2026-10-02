@@ -15,6 +15,8 @@ export default defineConfig({
     allowedDomains: [
       { protocol: 'https', hostname: 'heliadiascabeleireiros.pt' },
       { protocol: 'https', hostname: 'www.heliadiascabeleireiros.pt' },
+      { protocol: 'https', hostname: 'heliadiascabeleleiro.ersolutions.tech' },
+      { protocol: 'https', hostname: 'www.heliadiascabeleleiro.ersolutions.tech' },
     ],
   },
   vite: {
